@@ -1,0 +1,11 @@
+<<h2>Pregunta {{ pregunta_actual }} de {{ total }}</h2>
+<p>{{ pregunta.enunciado }}</p>
+{% if mensaje_error %}
+    <p style="color: red;">{{ mensaje_error }}</p>
+{% endif %}
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Responder</button>
+</form>
