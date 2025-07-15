@@ -1,6 +1,18 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Pregunta, Opcion
+from .models import Pregunta, Opcion, Jugador
 from .forms import RespuestaForm
+
+def crearUsuario(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        jugador = Jugador.objects.create(nombre=nombre)
+        
+        # Podés guardar el ID del jugador en la sesión para usarlo luego
+        request.session['jugador_id'] = jugador.id
+        
+        return redirect('jugar', pregunta_orden=0)  # o donde empiece el juego
+
+    return render(request, 'crearJugador.html')
 
 #Arranca desde la primera pregunta 
 def jugar(request, pregunta_orden=0):

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="Es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Juego</title>
+</head>
+<body>
+    <form method="post">
+    {% csrf_token %}
+    
+    <label for="nombre">Tu nombre:</label>
+    <input type="text" id="nombre" name="nombre" required>
+
+    <button type="submit">jugar</button>
+</form>
+</body>
+</html>

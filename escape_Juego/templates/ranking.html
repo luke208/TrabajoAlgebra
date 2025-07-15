@@ -1,7 +1,17 @@
-<h2>Ranking de Jugadores</h2>
-<ol>
-    {% for j in Jugadores %}
-        <li>{{ j.nombre }} -{{j.puntaje}} puntos</li>
-    {% endfor %}
-</ol>
-<a href="{% url 'jugar' %}">Volver a jugar</a>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Ranking de Jugadores</h2>
+    <ol>
+        {% for j in Jugadores %}
+            <li>{{ j.nombre }} -{{j.puntaje}} puntos</li>
+        {% endfor %}
+    </ol>
+    <a href="{% url 'jugar' %}">Volver a jugar</a>
+</body>
+</html>

@@ -1,11 +1,28 @@
-<<h2>Pregunta {{ pregunta_actual }} de {{ total }}</h2>
-<p>{{ pregunta.enunciado }}</p>
-{% if mensaje_error %}
-    <p style="color: red;">{{ mensaje_error }}</p>
-{% endif %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escape Room</title>
+</head>
+<body>
+  <!--Indica en el numero de pregunta que se encuentra-->
+  <h1>Nivel 1</h1>
+  <h2>Pregunta {{ pregunta_actual }} de {{ total }}</h2>
+  <!--Nos muestra el enunciado a la pregunta-->
+  <p>{{ pregunta.enunciado }}</p>
 
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Responder</button>
-</form>
+  <!--En el caso, de que se haya equivocado en la opcion, el usuario-->
+  {% if mensaje_error %}
+    <p style="color: red;">{{ mensaje_error }}</p>
+  {% endif %}
+
+  <!--Cuando envia el formulario el usuario-->
+  <form method="post">
+    {% csrf_token %}
+    <!--Muestra cada opcion de la pregunta como un parrafo-->
+    {{ form.as_p }}
+    <button type="submit">Responder</button>
+  </form>
+</body>
+</html>
