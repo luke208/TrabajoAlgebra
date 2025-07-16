@@ -4,18 +4,25 @@ from .forms import RespuestaForm
 
 def crearUsuario(request):
     if request.method == 'POST':
+        #Trae el nombre que el usuario coloco, en una variable
         nombre = request.POST.get('nombre')
+        #Crea el objeto jugador
         jugador = Jugador.objects.create(nombre=nombre)
         
-        # Podés guardar el ID del jugador en la sesión para usarlo luego
+        # Podés guardar el ID del jugador en la sesión para usarlo luego (Se guarda en el navegador)
         request.session['jugador_id'] = jugador.id
         
-        return redirect('jugar', pregunta_orden=0)  # o donde empiece el juego
+        
+        return redirect('jugar', pregunta_orden=0)  # Dirige al usuario al nivel (Primera Pregunta)
 
-    return render(request, 'crearJugador.html')
+    return render(request, 'crearJugador.html') #Desde donde viene los datos y la pagina 
 
 #Arranca desde la primera pregunta 
 def jugar(request, pregunta_orden=0):
+    #Trae el dato de jugador, lo guarda en una variable
+    jugador_id = request.session.get('jugador_id')
+    #Crea el objeto
+    jugador = Jugador.objects.get(id=jugador_id)
     #Trae las preguntas ordenadas
     preguntas = Pregunta.objects.all().order_by('id')  # O por dificultad, aleatorio, etc.
     
@@ -36,6 +43,7 @@ def jugar(request, pregunta_orden=0):
         form = RespuestaForm(request.POST, pregunta=pregunta)
         #Se valida el formulario, si se coloco alguna opcion
         if form.is_valid():
+            
             #se ve la opcion elegida
             opcion_id = form.cleaned_data['opcion']
             #se busca la opcion correcta
@@ -43,21 +51,25 @@ def jugar(request, pregunta_orden=0):
 
             # Verificamos si la opción es la correcta
             if opcion.es_correcta:
-                # Si es correcta, sumamos el puntaje y avanzamos
-                request.session['puntaje'] = request.session.get('puntaje', 0) + 1
                 # Redirigimos a la siguiente pregunta
                 return redirect('jugar', pregunta_orden=pregunta_orden + 1)
             else:
                 # Si no es correcta, mostramos un mensaje de error
+                jugador.puntaje-= int(jugador.puntaje*0.05)
+                jugador.save() #guarda en el request, porque sino queda en memoria y al avanzar se limpia
                 return render(request, 'jugar.html', {
+                    'jugador':jugador, #Se manda al jugador
                     'pregunta': pregunta,
                     'form': form,
+                    'pregunta_actual': pregunta_orden+1,
+                    'total': len(preguntas),
                     'mensaje_error': "Respuesta incorrecta. Intenta nuevamente.",
                 })
     else:
         form = RespuestaForm(pregunta=pregunta)
         #Avanza a la siguiente pregunta
     return render(request, 'jugar.html', {
+        'jugador':jugador,
         'pregunta': pregunta,
         'form': form,
         'pregunta_actual': pregunta_orden + 1,
@@ -65,12 +77,7 @@ def jugar(request, pregunta_orden=0):
         'mensaje_error': None,  # No mostrar mensaje de error al principio
     })
 
-#Iniciar el juego desde el comienzo
-def iniciar_juego(request):
-    # Reiniciar puntaje si querés
-    request.session['puntaje'] = 0
-    return redirect('jugar', pregunta_orden=0)
 
 def resultado_final(request):
-    puntaje = request.session.get('puntaje', 0)
+    puntaje = Jugador.puntaje
     return render(request, 'resultado_final.html', {'puntaje': puntaje})
