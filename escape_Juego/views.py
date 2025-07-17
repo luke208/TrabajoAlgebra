@@ -79,5 +79,9 @@ def jugar(request, pregunta_orden=0):
 
 
 def resultado_final(request):
-    puntaje = Jugador.puntaje
-    return render(request, 'resultado_final.html', {'puntaje': puntaje})
+    jugador = Jugador.objects.last()
+    return render(request, 'resultado.html', {'jugador': jugador})
+
+def ranking(request):
+    jugadores = Jugador.objects.all().order_by('-puntaje')  # Una lista con los jugadores listados por el puntaje 
+    return render(request, 'ranking.html', {'jugadores': jugadores}) #Retorna a html de resultado final 

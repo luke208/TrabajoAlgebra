@@ -1,3 +1,4 @@
+<!---->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,10 +9,9 @@
 <body>
     <h2>Ranking de Jugadores</h2>
     <ol>
-        {% for j in Jugadores %}
+        {% for j in jugadores %}
             <li>{{ j.nombre }} -{{j.puntaje}} puntos</li>
         {% endfor %}
     </ol>
-    <a href="{% url 'jugar' %}">Volver a jugar</a>
 </body>
 </html>
