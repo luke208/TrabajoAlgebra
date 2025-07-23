@@ -5,7 +5,9 @@ class Jugador(models.Model):
     #clase Jugador con Nombre, puntaje y fecha que se jugo
     nombre=models.CharField(max_length=100)
     puntaje=models.IntegerField(default=100)
-    fecha_jugada=models.DateTimeField(auto_now_add=True)
+    tiempo_inicio = models.DateTimeField(null=True, blank=True)
+    tiempo_final = models.DateTimeField(null=True, blank=True)
+    tiempo_total = models.DurationField(null=True, blank=True)
 
     #Como muestra los datos
     def __str__(self):
