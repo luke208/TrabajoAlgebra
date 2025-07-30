@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title style="color: burlywood;">{% block title %}{% endblock %}</title>
+</head>
+<body>
+  <h2>Sala: {{ sala.nombre }}</h2><br>
+  <p>Tiempo restante: <span id="tiempo">{{ tiempo_restante }}</span>s</p>
+  <p>Puntaje: <span id="puntaje">{{ puntaje_actual }}</span></p>
+  <div>
+    <h3>Pregunta:</h3>
+    <p class="enunciado">{{ pregunta.enunciado }}</p>
+  </div>
+      <form method="post" action="{% url 'procesar_respuesta' pregunta.id %}" class="respuesta-form">
+      {% csrf_token %}
+          {# ESTE ES EL BLOQUE PRINCIPAL PARA EL CONTENIDO ESPECÍFICO DE LA PREGUNTA #}
+          {% block question_form_fields %}
+              {# Las plantillas hijas (jugar_directa.html, jugar_multiple_choice.html) #}
+              {# sobrescribirán este bloque para insertar los campos del formulario. #}
+          {% endblock %}
+      <button type="submit">Responder</button>
+      </form>
+    </div>
+        <p class="back-link"><a href="{% url 'eleccionNivel' %}">Volver a Salas</a></p>
+    </div>
+</body>
+</html>

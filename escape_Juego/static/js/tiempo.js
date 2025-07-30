@@ -1,6 +1,12 @@
-  
-  // Pasás desde Django al JS el tiempo de inicio
-  const tiempoInicio = new Date("{{tiempo_inicio_js}}");
+  //Busca en el html, desde el cronometro container (Que es el div)
+  document.addEventListener("DOMContentLoaded", () => {
+    const contenedor = document.getElementById("cronometro-container");
+
+    if (!contenedor) return; // por si no existe
+
+    //Trae el dato del dato que contiene el div
+    const inicioStr = contenedor.dataset.inicio;
+    const tiempoInicio = new Date(inicioStr);
 
   function actualizarCronometro() {
       const ahora = new Date();
@@ -13,4 +19,4 @@
   }
 
   setInterval(actualizarCronometro, 1000);
-
+});

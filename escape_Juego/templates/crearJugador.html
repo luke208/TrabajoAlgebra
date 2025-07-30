@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuevo Juego</title>
+    <title>Registro</title>
 </head>
 <body>
+    <h1>Registro</h1>
     <form method="post">
     {% csrf_token %}
+    <div>
+        <label for="nombre">Tu nombre:</label>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+    </div>
     
-    <label for="nombre">Tu nombre:</label>
-    <input type="text" id="nombre" name="nombre" required>
+    <div>
+        <label for="correo">Correo Electronico:</label>
+        <input type="email" id="correo" name="correo" required>
+    </div><br>
 
     <button type="submit">jugar</button>
 </form>
