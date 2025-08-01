@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- ==============================
+       FUENTES Y META DATOS
+  ============================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+
+  <meta charset="UTF-8">
+  <title>THE SCAPE ROOM: UNKNOWN DIMENSION</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Ruta CSS desde la raíz /static -->
+  <link rel="stylesheet" href="../static/css/menu.css">
+</head>
+<body>
+  <!-- ==============================
+       VIDEO DE FONDO
+  ============================== -->
+  <video class="video-fondo" id="videoFondo" autoplay loop muted>
+    <!-- Ruta video desde la raíz /static/videos -->
+    <source src="videos/fondo.mp4" type="video/mp4">
+  </video>
+
+  <!-- ==============================
+       PANTALLA DE BIENVENIDA
+  ============================== -->
+  <div id="bienvenida" class="pantalla-bienvenida">
+    <h1>BIENVENIDOS HACKERS - ACCESO RESTRINGIDO</h1>
+    <button class="btn" onclick="entrar()">ENTRAR</button>
+  </div>
+
+  <!-- ==============================
+       MENÚ PRINCIPAL
+  ============================== -->
+  <div class="contenido" id="menu-principal" style="display:none;">
+    <h1><strong>ESCAPE ROOM:</strong></h1>
+    <h1><strong>UNKNOWN DIMENSION</strong></h1>
+    <h2>Continuar</h2>
+    <a href="#" onclick="cargarNivel()"><h3 class="clickeables">Nueva Partida</h3></a>
+    
+    <!-- PANTALLA HACKER (EFECTO MATRIX) -->
+    <div id="pantallaCarga" style="display:none;" class="pantalla-hacker">
+      <canvas id="matrixCanvas"></canvas>
+      <div class="contenedor-texto">
+        <h1 class="hacker-texto">STAGE 1</h1>
+        <p class="hacker-cargando">Cargando...</p>
+      </div>
+    </div>
+    
+    <!-- AUDIOS DEL MENÚ -->
+    <audio id="sonidoAcceso" src="audios/sonido-menu.mp3" preload="auto"></audio>
+    <audio id="sonidoInicio">
+      <source src="audios/sonido-stage.wav" type="audio/wav">
+    </audio>
+    <audio id="sonido-menu" autoplay loop>
+      <source src="audios/sonido-menu.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- OPCIONES DEL MENÚ -->
+    <h3>Cargar Partida</h3>
+    <h3>Niveles</h3>
+    <h3>Ajustes</h3>
+    <h3>Soporte</h3>
+  </div>
+
+  <!-- JS desde /static/js/ -->
+  <script src="../static/js/menu.js"></script>
+</body>
+</html>

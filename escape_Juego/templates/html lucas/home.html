@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escape Room</title>
+</head>
+<body>
+    <div>
+        <h1>Escape Room</h1>
+        <a href="{% url 'account_login' %}">INGRESAR</a>
+        <div>
+            {% if user.is_authenticated %}
+            {# pregunta si el usuario ya se encuentra autenticado}
+                <p>Estás autenticado como {{ user.username }}.</p> {#Indica que nombre tiene}
+                <p>Haz clic en INGRESAR para ir al menú del juego.</p>
+            {% else %}
+                <p>(Si es tu primera vez, se te registrará automáticamente)</p> {#Sino registra}
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
