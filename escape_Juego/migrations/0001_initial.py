@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='Jugador',
             fields=[
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
-                ('nombre_juego', models.CharField(blank=True, help_text='Nombre visible en el juego (nickname). Déjalo vacío para usar el nombre de usuario.', max_length=100, null=True, unique=True)),
+                ('nombre_juego', models.CharField(blank=True, help_text='Nombre visible en el juego (nickname). Déjalo vacío para usar el nombre de usuario.', max_length=100, null=True)),
                 ('fecha_registro', models.DateTimeField(auto_now_add=True)),
             ],
         ),

@@ -2,8 +2,17 @@ from django.urls import path
 from . import views
 
 urlpatterns=[
-    #hasta el momento para crear el usuario
-    #path('',views.crearUsuario, name= 'nuevoJuego'),
+    #La principal, por la que inicia el usuario y le pide ingresar
+    #Hara el registro o inicio de sesion
+    path('',views.home, name= 'home'),
+    #Punto intermedio que verifica si ya se encuentra logueado el usuario
+    #Sino lo esta, lleva a pedir el nombre del usuario, con el que se identificara en el juego
+    #Sino va al menu del juego
+    path('despues-login/', views.despues_login, name='despues_login'),
+    #Para configurar el nombre
+    path('configurar-nombre/', views.ConfigurarNombreJuego.as_view(), name='configurar_nombre_juego'),
+    #El menu del juego
+    path('menu/', views.menu_juego, name='menu_juego'),
 
     #Eleccion de Nivel<En el selector de niveles>
     path('eleccionNivel',views.eleccionNivel, name='eleccionNivel'),

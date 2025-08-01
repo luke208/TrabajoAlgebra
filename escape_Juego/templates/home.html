@@ -8,11 +8,11 @@
 <body>
     <div>
         <h1>Escape Room</h1>
-        <a href="{% url 'account_login' %}">INGRESAR</a>
+        <a href="{% url 'account_login' %}">INGRESAR</a> {# acoount/login es el url para la identificacion por google #}
         <div>
             {% if user.is_authenticated %}
-            {# pregunta si el usuario ya se encuentra autenticado}
-                <p>Estás autenticado como {{ user.username }}.</p> {#Indica que nombre tiene}
+            <!--pregunta si el usuario ya se encuentra autenticado -->
+                <p>Estás autenticado como {{ user.username }}.</p> <!-- Indica el nombre que tiene -->
                 <p>Haz clic en INGRESAR para ir al menú del juego.</p>
             {% else %}
                 <p>(Si es tu primera vez, se te registrará automáticamente)</p> {#Sino registra}

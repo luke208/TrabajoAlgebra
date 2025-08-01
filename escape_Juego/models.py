@@ -13,7 +13,7 @@ class Jugador(models.Model):
     # primary_key=True hace que el ID del Jugador sea el mismo que el ID del User.
     # Esto significa que request.user.id == request.user.jugador.id
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
-    nombre_juego = models.CharField(max_length=100, unique=True, blank=True, null=True,
+    nombre_juego = models.CharField(max_length=100, blank=True, null=True,
                                     help_text="Nombre visible en el juego (nickname). Déjalo vacío para usar el nombre de usuario.")
     # Ya no necesitas 'nombre' ni 'email' aquí, se obtienen del User model (user.username, user.email)
     fecha_registro = models.DateTimeField(auto_now_add=True)  # Fecha en la que se registró automáticamente

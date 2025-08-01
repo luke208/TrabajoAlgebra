@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nombre de Juego</title>
+</head>
+<body>
+    <div>
+        <h1>¡Bienvenido Hacker! Como quieres que te digamos?</h1>
+        <p>Asi se te identificará en el juego y en el ranking.</p>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }} {# Esto renderiza los campos del formulario como párrafos #}
+            <button type="submit">Guardar Nombre</button>
+        </form>
+    </div>
+</body>
+</html>

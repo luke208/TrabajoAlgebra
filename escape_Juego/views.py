@@ -5,16 +5,17 @@ from django.contrib import messages
 from django.urls import reverse_lazy # Importar reverse_lazy
 from django.views.generic import FormView
 #from .models import Pregunta, Opcion, Jugador,Sala
-#from .forms import RespuestaForm
+from .forms import NombreJuegoForm
 from .models import Intento # Asegúrate de que Intento esté aquí
 #Coloco esta libreria para tener en cuenta el tiempo del usuario
 from django.utils.timezone import now
 
+#Inicio de pagina-Nombrado como Home
 def home(request):
     return render(request, 'home.html')
-# --- NUEVA VISTA: Punto de entrada después del login ---
 
-@login_required
+# --- NUEVA VISTA: Punto de entrada después del login ---
+@login_required #Esto significa que solamente puede ser accedido, ya logueado
 def despues_login(request):
     # Verifica si el Jugador tiene un nombre_juego configurado
     # Como es la primera vez, este se encuentra limpio
@@ -25,6 +26,33 @@ def despues_login(request):
     else:
         # Si ya tiene nombre de juego, va directo al menú principal del juego
         return redirect('menu_juego')
+# --- Vista para configurar el nombre del jugador ---
+
+class ConfigurarNombreJuego(LoginRequiredMixin, FormView):
+    template_name = 'configurar_nombre_juego.html'
+    form_class = NombreJuegoForm
+    success_url = reverse_lazy('menu_juego') # Después de guardar el nombre, ir al menú
+
+    #Trae el nombre actual en caso de que exista
+    def get_initial(self):
+        initial = super().get_initial()
+        # Precargar el nombre actual si ya existe
+        if self.request.user.is_authenticated and hasattr(self.request.user, 'jugador'):
+            initial['nombre_juego'] = self.request.user.jugador.nombre_juego
+        return initial
+    
+    #Trae el formulario validado y coloca el nombre que eligio
+    def form_valid(self, form):
+        jugador = self.request.user.jugador
+        jugador.nombre_juego = form.cleaned_data['nombre_juego']
+        jugador.save()
+        messages.success(self.request, "¡Tu nombre de juego ha sido guardado con éxito!")
+        return super().form_valid(form)
+
+# --- Vista del menú principal del juego (sin cambios en su lógica) ---
+@login_required
+def menu_juego(request):
+    return render(request, 'menu_juego.html')
 
 @login_required
 def eleccionNivel(request):
@@ -39,26 +67,7 @@ def eleccionNivel(request):
     
     return render(request, 'salas.html', {'todas_salas': todas_salas, 'jugador':jugador})
 
-# --- Vista para configurar el nombre del jugador ---
-class ConfigurarNombreJuego(LoginRequiredMixin, FormView):
-    template_name = 'configurar_nombre_juego.html'
-    form_class = NombreJuegoForm
-    success_url = reverse_lazy('menu_juego') # Después de guardar el nombre, ir al menú
 
-    #Trae el nombre actual en caso de que exista
-    def get_initial(self):
-        initial = super().get_initial()
-        # Precargar el nombre actual si ya existe
-        if self.request.user.is_authenticated and hasattr(self.request.user, 'jugador'):
-            initial['nombre_juego'] = self.request.user.jugador.nombre_juego
-        return initial
-
-    def form_valid(self, form):
-        jugador = self.request.user.jugador
-        jugador.nombre_juego = form.cleaned_data['nombre_juego']
-        jugador.save()
-        messages.success(self.request, "¡Tu nombre de juego ha sido guardado con éxito!")
-        return super().form_valid(form)
 @login_required
 def nivelSeleccionado(request, sala_id):
     #Redirige a una plantilla específica de nivel según la sala seleccionada.
