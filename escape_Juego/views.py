@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.urls import reverse_lazy # Importar reverse_lazy
 from django.views.generic import FormView
+from django.contrib.auth import logout as auth_logout
 #from .models import Pregunta, Opcion, Jugador,Sala
 from .forms import NombreJuegoForm
 from .models import Intento # Asegúrate de que Intento esté aquí
@@ -52,7 +53,17 @@ class ConfigurarNombreJuego(LoginRequiredMixin, FormView):
 # --- Vista del menú principal del juego (sin cambios en su lógica) ---
 @login_required
 def menu_juego(request):
-    return render(request, 'menu_juego.html')
+    jugador=request.user.jugador
+    return render(request, 'menu_juego.html',{'jugador':jugador})
+
+@login_required
+def custom_logout_view(request):
+    """
+    Cierra la sesión del usuario y lo redirige a la página de inicio.
+    """
+    auth_logout(request)
+    return redirect('home') # 'home' es el nombre de la URL de tu página de inicio
+
 
 @login_required
 def eleccionNivel(request):

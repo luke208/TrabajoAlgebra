@@ -1,23 +1,23 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escape Room</title>
+    <title>THE SCAPE ROOM: UNKNOWN DIMENSION</title>
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}"> <!--Link de los estilos del menu-->
 </head>
 <body>
-    <div>
-        <h1>Escape Room</h1>
-        <a href="{% url 'account_login' %}">INGRESAR</a> {# acoount/login es el url para la identificacion por google #}
-        <div>
-            {% if user.is_authenticated %}
-            <!--pregunta si el usuario ya se encuentra autenticado -->
-                <p>Estás autenticado como {{ user.username }}.</p> <!-- Indica el nombre que tiene -->
-                <p>Haz clic en INGRESAR para ir al menú del juego.</p>
-            {% else %}
-                <p>(Si es tu primera vez, se te registrará automáticamente)</p> {#Sino registra}
-            {% endif %}
-        </div>
-    </div>
+    <div id="bienvenida" class="pantalla-bienvenida"> 
+    <h1>BIENVENIDOS HACKERS - ACCESO RESTRINGIDO</h1>
+    <a href="{% url 'account_login' %}">
+    <button class="btn">ENTRAR</button>
+  </div>
 </body>
 </html>

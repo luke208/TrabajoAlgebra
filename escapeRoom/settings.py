@@ -146,4 +146,7 @@ SECRET_KEY = os.getenv('SECRET_KEY') #Lee la clave secreta, y evita que se encue
 DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 't')
 
 LOGIN_REDIRECT_URL = 'despues_login'
-
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_ONLY = True
+ACCOUNT_EMAIL_VERIFICATION = 'none' # <-- Agrega esta línea

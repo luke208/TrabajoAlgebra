@@ -13,6 +13,7 @@ urlpatterns=[
     path('configurar-nombre/', views.ConfigurarNombreJuego.as_view(), name='configurar_nombre_juego'),
     #El menu del juego
     path('menu/', views.menu_juego, name='menu_juego'),
+    path('logout/', views.custom_logout_view, name='account_logout'),
 
     #Eleccion de Nivel<En el selector de niveles>
     path('eleccionNivel',views.eleccionNivel, name='eleccionNivel'),
