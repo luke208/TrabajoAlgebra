@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from escape_Juego import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('escape_Juego.urls')),
+    path('admin/', admin.site.urls), #Trae todas las urls que necesita el administrador de django
+    path('accounts/', include('allauth.urls')), #Utilizado para la autenticacion por google
+    path('', include('escape_Juego.urls')), #Esto lleva al sistema de sitio de la aplicacion(En este caso al Escape Room)
 ]

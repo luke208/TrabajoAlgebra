@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block head_title %}Escape Room{% endblock head_title %}</title>
+    
+    {# Enlaza tu archivo CSS principal (donde están los estilos de login) #}
+    {# Asegúrate de que 'static' esté configurado en tu settings.py y que tu CSS esté en la carpeta static #}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}"> {# O 'style.css' si ese es el nombre de tu archivo CSS #}
+    
+    {# Enlaza la fuente Audiowide de Google Fonts #}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    
+    {# Bloque para añadir CSS o scripts adicionales en el head desde plantillas hijas #}
+    {% block extra_head %}
+    {% endblock extra_head %}
+</head>
+<body class="{% block body_class %}{% endblock body_class %}">
+    {# Este es el bloque donde se insertará el contenido específico de cada página (como login.html) #}
+    {% block content %}
+    {% endblock content %}
+</body>
+</html>

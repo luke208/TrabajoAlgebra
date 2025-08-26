@@ -1,0 +1,271 @@
+/* ==============================
+   ESTILOS GENERALES Y VIDEO DE FONDO
+   ============================== */
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+
+
+   body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-size: 20px;
+  overflow: hidden;
+}
+
+.video-fondo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* ==============================
+   PANTALLA DE BIENVENIDA
+   ============================== */
+.pantalla-bienvenida {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: black;
+  color: #00cc00;
+  font-family: "Audiowide", sans-serif;
+  z-index: 10;
+}
+
+.pantalla-bienvenida h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  animation: parpadeo 1s infinite;
+}
+
+@keyframes parpadeo {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* --- Botón de bienvenida --- */
+.btn {
+  padding: 1rem 2rem;
+  font-size: 2rem;
+  background-color: #008800;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 1rem;
+  font-family: "Audiowide", sans-serif;
+}
+
+.btn:hover {
+  background-color: #00cc00;
+}
+
+/* ==============================
+   MENÚ PRINCIPAL
+   ============================== */
+.contenido {
+    position: relative;
+    z-index: 1;
+    color: white;
+    text-align: left;
+    /* Reducir el padding y el tamaño del menú */
+    padding: 1rem 0 0 1rem;
+    font-family: "Audiowide", sans-serif;
+}
+
+/* --- Títulos del menú --- */
+.contenido h1 {
+    margin-top: 0;
+    /* Reducir el tamaño de fuente para escritorio */
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-style: normal;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 0.8;
+}
+
+.contenido h2 {
+    /* Reducir el margen superior para que no esté tan abajo */
+    margin-top: 8rem;
+    /* Reducir el tamaño de fuente */
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    display: block;
+    width: fit-content;
+}
+
+
+.contenido h3 {
+    /* Reducir el tamaño de fuente */
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: color 0.3s;
+    display: block;
+    width: fit-content;
+}
+
+/* --- Enlaces del menú --- */
+a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: fit-content;
+}
+
+/* --- Efectos hover en el menú --- */
+.contenido h2:hover,
+.contenido h3:hover {
+  color: #00ffff;
+}
+
+/* ==============================
+   PANTALLA HACKER (EFECTO MATRIX)
+   ============================== */
+.pantalla-hacker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  flex-direction: column;
+}
+
+#matrixCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.contenedor-texto {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.hacker-texto {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #00ff00;
+}
+
+.hacker-cargando {
+  font-size: 2rem;
+  animation: blink 1s infinite;
+  color: #00ff00;
+  margin-bottom: 2rem;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
+/* ==============================
+   ESTILOS RESPONSIVOS
+   ============================== */
+
+/* Estilos para pantallas con un ancho máximo de 768px (móviles y tablets) */
+@media (max-width: 768px) {
+
+  /* Ajuste de fuentes para la pantalla de bienvenida */
+  .pantalla-bienvenida h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  /* Ajuste de fuentes para el menú principal */
+  .contenido {
+    padding: 2rem 1rem 0 1rem;
+    text-align: center; /* Centrar el contenido del menú */
+  }
+
+  .contenido h1 {
+    font-size: 2.5rem;
+    line-height: 1; /* Restaurar el line-height para móviles */
+    margin-bottom: 0.5rem;
+  }
+
+  .contenido h2 {
+    margin-top: 5rem; /* Reducir el margen superior para que no ocupe tanto espacio */
+    font-size: 1.5rem;
+  }
+
+  .contenido h3 {
+    font-size: 1.5rem;
+  }
+
+  .contenido a, .contenido h2, .contenido h3 {
+    width: 100%;
+    margin: 0.5rem auto; /* Centrar y agregar espacio entre los elementos del menú */
+  }
+}
+
+
+ /* ==============================
+   DETALLES DEL USUARIO Y LOGOUT
+   ============================== */
+
+/* Contenedor del usuario y el botón */
+.usuario-info {
+    position: absolute; /* Posicionamiento para que esté en la esquina superior */
+    top: 1rem;
+    right: 1rem;
+    text-align: right;
+    font-family: "Audiowide", sans-serif;
+    color: white; /* Color base para el texto */
+    font-size: 1rem; /* Tamaño de fuente más discreto */
+    z-index: 10; /* ¡AÑADE ESTA LÍNEA! */
+}
+
+/* Estilo para el nombre de usuario */
+.usuario-info h3 {
+    margin: 0;
+    font-size: 1rem; /* Tamaño de fuente más discreto */
+    color: #00cc00; /* Color verde brillante */
+}
+
+/* Estilo para el enlace de Cerrar sesión */
+.usuario-info a {
+    text-decoration: none; /* Quitar el subrayado del enlace */
+    color: #00ff00; /* Color del texto del enlace */
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+/* Efecto hover al pasar el cursor sobre el enlace */
+.usuario-info a:hover {
+    color: #00ffff; /* Cambia a un color cian al pasar el ratón */
+}

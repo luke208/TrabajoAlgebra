@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegir Nivel</title>
+</head>
+<body>
+    <h1 style="color:chocolate">Bienvenido {{jugador.nombre}}-{{jugador.email}}</h1>
+    <h2>Elige el Nivel Papi</h2>
+    <ul>
+        {% for sala in todas_salas %}
+        <div>
+            <h3>{{sala.nombre}}</h3>
+            <p>{{sala.descripcion}}</p>
+            <a href="{% url 'sala_seleccionada' sala.id %}"> jugar</a>
+        </div>
+        {% endfor %}
+    </ul>
+</body>
+</html>

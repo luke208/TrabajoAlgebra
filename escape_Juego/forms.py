@@ -1,15 +1,29 @@
-from django import forms #Importa la libreria de formularios preinstalada de Djang0
-from .models import Pregunta
+from django import forms
+from .models import Jugador #Importa el modelo de jugador
 
-#Crea la clase Respuesta del formulario
-class RespuestaForm(forms.Form): #Estoy utilizando el formulario clasico, por eso el argumento
-    opcion = forms.ChoiceField(widget=forms.RadioSelect) #Da una posibilidad de opciones para la pregunta
-                            #De forma grafica permite ver un diseño para elegir las opciones
+#La clase para colocar el nombre del jugador
+class NombreJuegoForm(forms.ModelForm):
+    #Modifica los valores
+    class Meta:
+        model = Jugador #Aplica al modelo del jugador
+        fields = ['nombre_juego'] #En el campo del nombre del juego
+        labels = {
+            'nombre_juego': 'Tu Nombre de Juego (nickname)', #Indica cual sera tu nombre
+        }
+        help_texts = {
+            'nombre_juego': 'Este nombre será visible para otros jugadores y en el ranking.',
+        }
 
-    #Aca desglosa las opciones
+    #Muestra el dato del nombre del usuario
     def __init__(self, *args, **kwargs):
-        pregunta = kwargs.pop('pregunta')
+        # Es crucial para la validación obtener el usuario actual
+        self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
-        self.fields['opcion'].choices = [
-            (opcion.id, opcion.texto) for opcion in pregunta.opciones.all()
-        ]
+
+    #Funcion para limpiar el nombre del juego
+    def clean_nombre_juego(self):
+        nombre_juego = self.cleaned_data['nombre_juego']
+        if not nombre_juego.strip(): # Evita nombres solo con espacios
+            raise forms.ValidationError("El nombre de juego no puede estar vacío.")
+        # Opcional: Podrías añadir validación para caracteres especiales, longitud, etc.
+        return nombre_juego

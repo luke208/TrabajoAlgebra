@@ -6,5 +6,6 @@
             "name": "db",
             "database": "${workspaceFolder:escapeRoom}/db.sqlite3"
         }
-    ]
+    ],
+    "liveServer.settings.port": 5501
 }

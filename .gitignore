@@ -1,0 +1,21 @@
+# Archivo .gitignore para Django
+
+# Archivos de caché y bases de datos
+__pycache__/
+*.pyc
+*.db
+*.sqlite3
+
+# Entorno virtual
+venv/
+env/
+
+# Archivos de configuración con información sensible
+.env
+
+
+# Archivos de log
+*.log
+
+# Archivos de desarrollo específicos del IDE (ej. VS Code)
+.vscode/

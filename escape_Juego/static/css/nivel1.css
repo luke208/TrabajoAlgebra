@@ -1,0 +1,1369 @@
+/* ======================== */
+/* ===== ESTILOS GLOBALES ===== */
+/* ======================== */
+
+/* Reseteo básico para todos los elementos */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* Usa una fuente que se ha definido en el HTML/JS */
+    font-family: "Audiowide", sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    /* Un tamaño base responsivo para la fuente */
+    font-size: clamp(10px, 2vw, 20px);
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background-color: #0a0a0a; /* Fondo oscuro por defecto */
+    color: #fff; /* Color de texto blanco por defecto */
+}
+
+/* Reseteo de estilos para los botones */
+button {
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+}
+
+/* Estilos de la pantalla de Nivel Completado */
+        .cinematica-final {
+            position: fixed; /* Ocupa toda la ventana del navegador */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* Fondo oscuro semitransparente */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 1000; /* Asegura que esté por encima de todos los elementos */
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        .cinematica-content {
+            padding: 40px;
+            max-width: 600px;
+            background: rgba(44, 44, 44, 0.8);
+            border: 2px solid #00f0ff;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+        }
+
+        .cinematica-content h1 {
+            color: #00f0ff;
+            text-shadow: 0 0 10px #00f0ff;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cinematica-content p {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        #siguiente-nivel-btn {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #00f0ff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px #00f0ff;
+}
+        #siguiente-nivel-btn:hover {
+            background-color: #00aaff;
+            box-shadow: 0 0 20px #00aaff;
+            transform: translateY(-2px);
+        }
+/* ======================== */
+/* ===== BOTONES PRINCIPALES ===== */
+/* ======================== */
+
+/* Estilos para el botón de la puerta con animación de onda */
+.boton-puerta {
+  position: absolute;
+  width: 60px;   /* tamaño base */
+  height: 60px;
+  background: rgba(56, 112, 172, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 5;
+  border: 2px solid #fff;
+  overflow: visible;
+  transition: background-color 0.3s ease;
+}
+
+.boton-puerta:hover {
+    background-color: rgba(56, 112, 172, 0.8);
+}
+
+.boton-puerta::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transform: scale(1);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.boton-puerta:hover::after {
+    animation: ondaRadioBorde 1.5s ease-out infinite;
+}
+
+@keyframes ondaRadioBorde {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Botón de "volver" */
+#boton-volver {
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  width: 60px;   /* tamaño base */
+  height: 60px;
+  cursor: pointer;
+  z-index: 15;
+  display: none;
+  overflow: visible;
+  background: rgba(56, 112, 172, 0.8);
+  border: 2px solid #fff;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+#boton-volver:hover {
+    background: rgba(56, 112, 172, 1);
+    transform: scale(1.05) translateX(-3px);
+}
+
+.chevron-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+    width: 40px;
+    height: 40px;
+}
+
+.chevron {
+    position: absolute;
+    width: 25px;
+    height: 6px;
+    opacity: 0;
+    transform: scale(0.3);
+    animation: move-chevron 4s ease-out infinite;
+    left: 50%;
+    margin-left: -12.5px;
+}
+
+.chevron:first-child { animation-delay: 1.5s; }
+.chevron:nth-child(2) { animation-delay: 3s; }
+
+.chevron:before,
+.chevron:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    background: #ffffff;
+}
+
+.chevron:before { left: 0; transform: skewY(30deg); }
+.chevron:after { right: 0; transform: skewY(-30deg); }
+
+@keyframes move-chevron {
+    25% { opacity: 1; }
+    33.3% { opacity: 1; transform: translateY(12px); }
+    66.6% { opacity: 1; transform: translateY(20px); }
+    100% { opacity: 0; transform: translateY(30px) scale(0.5); }
+}
+
+/* ======================== */
+/* ===== CONTENEDORES DE JUEGO ===== */
+/* ======================== */
+
+/* Contenedor principal del juego, no tocar. */
+#game-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 0;
+}
+
+/* Imagen del fondo */
+#game-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transition: transform 0.7s ease, filter 0.7s ease;
+    /*object-fit: cover; /* Para asegurar que la imagen cubra todo el espacio */
+}
+
+/* ======================== */
+/* ===== POPUPS Y PANTALLAS ===== */
+/* ======================== */
+
+/* Contenedor del tutorial */
+#tutorial-container {
+    position: fixed;
+    left: 50%;
+    bottom: 2em;
+    transform: translateX(-50%);
+    background-color: rgba(56, 51, 51, 0.95);
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+    padding: 1em 1.5em; /* 🔹 Menos padding para que el texto no se corte */
+    max-width: clamp(300px, 90vw, 800px); /* 🔹 Más ancho en pantallas grandes */
+    width: auto; /* 🔹 Ajusta automáticamente al contenido */
+    
+    display: flex;
+    flex-direction: column;
+    gap: 1em; /* 🔹 Espacio entre bloques */
+    text-align: left;
+    z-index: 9999;
+    box-shadow: 0 1em 1em rgba(0, 0, 0, 0.863);
+    color: #fff;
+    font-size: clamp(0.9rem, 1.2vw, 1.2rem); /* 🔹 Escalable */
+}
+
+.tutorial-box {
+    display: flex;
+    flex-wrap: wrap; /* 🔹 Si no cabe, baja el texto */
+    align-items: center;
+    gap: 1em;
+}
+.avatar-col {
+    flex : 0 0 auto; /* No crecer ni encoger */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 1.5em;
+}
+
+.avatar {
+    width: clamp(6em, 15vw, 12em); /* 🔹 Escalable */
+    height: clamp(6em, 15vw, 12em);
+    border-radius: 50%;
+}
+
+.avatar-nombre {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    text-align: center;
+    margin-top: 0.3em;
+}
+
+.tutorial-text {
+    flex: 1;
+    min-width: 200px; /* 🔹 Nunca se colapsa demasiado */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.4;
+    font-size: clamp(1rem, 1.5vw, 1.3rem);
+}
+
+#next-btn {
+    padding: 0.5em 1.2em;
+    background-color: #3498db;
+    color: #fff; /* <-- CORRECCIÓN: Se cambió a blanco para un mejor contraste */
+    border: none;
+    border-radius: 0.25em;
+    font-size: 0.8em;
+    cursor: pointer;
+    align-self: flex-end;
+}
+
+/* Pantalla interactiva genérica */
+.pantalla-interactiva {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70%;
+    max-width: 600px;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 20px;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    z-index: 10;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.pantalla-interactiva h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.pantalla-interactiva p {
+    margin-bottom: 20px;
+}
+
+.pantalla-interactiva button {
+    padding: 10px 20px;
+    border: none;
+    background: white;
+    color: black;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.pantalla-interactiva button:hover {
+    background: #ccc;
+}
+
+/* ======================== */
+/* ===== ESTILOS ESPECÍFICOS ===== */
+/* ======================== */
+
+/* Estilos para el contenedor de las casillas de la clave */
+#clave-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.input-clave {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5em;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid #5d9eef;
+    color: #fff;
+    border-radius: 5px;
+    outline: none;
+}
+
+/* Estilos para el botón de verificar */
+#verificar-clave-btn {
+    padding: 10px 20px;
+    border: none;
+    background: #5d9eef;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#verificar-clave-btn:hover {
+    background: #3a75b2;
+}
+
+/* Estilos para las opciones de la pantalla interactiva */
+.opciones-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.opcion-btn {
+    width: 100%;
+    padding: 15px 25px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid #5d9eef;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+}
+
+.opcion-btn:hover {
+    background-color: rgba(93, 158, 239, 0.5);
+    transform: scale(1.02);
+}
+
+/* ======================== */
+/* ===== ANIMACIONES Y EFECTOS ===== */
+/* ======================== */
+
+/* Estilos y animaciones del tutorial spotlight */
+.overlay-tutorial {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9998;
+    pointer-events: none;
+}
+
+.highlight-tutorial {
+    position: relative;
+    z-index: 9999 !important;
+    box-shadow: 0 0 20px 10px rgba(255, 255, 0, 0.7);
+    animation: parpadeo-tutorial 1.2s infinite alternate;
+}
+
+@keyframes parpadeo-tutorial {
+    from { box-shadow: 0 0 20px 10px rgba(255, 255, 0, 0.7); }
+    to { box-shadow: 0 0 40px 15px rgba(255, 255, 0, 1); }
+}
+
+.flecha-tutorial {
+    position: absolute;
+    font-size: 40px;
+    color: yellow;
+    animation: mover-flecha 0.8s infinite alternate;
+    z-index: 10000;
+    pointer-events: none;
+}
+
+@keyframes mover-flecha {
+    from { transform: translateX(0); }
+    to { transform: translateX(10px); }
+}
+
+/* Efecto de Game Over */
+.game-over {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', monospace;
+    z-index: 9999;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.game-over h1 {
+    font-size: clamp(2rem, 8vw, 6rem);
+    margin-bottom: 1rem;
+    animation: parpadeo 1s infinite;
+}
+
+.game-over p {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.game-over button {
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    background-color: #880000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.game-over button:hover {
+    background-color: red;
+}
+
+/* Animaciones */
+@keyframes parpadeo {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Contador de tiempo */
+.contador {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 2.5rem;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 0.5rem 1rem;
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+}
+
+/* Estilos para el contenedor genérico */
+.mi-contenedor {
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+}
+
+/* ======================== */
+/* ===== MEDIA QUERIES EN HORIZONTAL ===== */
+/* ======================== */
+
+/* === Pantallas muy bajas (móviles en horizontal) === */
+@media (max-height: 480px) {
+  .boton-puerta {
+    width: 35px;
+    height: 35px;
+  }
+
+  #boton-volver {
+    width: 40px;
+    height: 40px;
+  }
+
+  #siguiente-nivel-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .opcion-btn,
+  .game-over button {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+}
+
+/* === Altura media (tablets en horizontal) === */
+@media (min-height: 481px) and (max-height: 768px) {
+  .boton-puerta {
+    width: 50px;
+    height: 50px;
+  }
+
+  #boton-volver {
+    width: 50px;
+    height: 50px;
+  }
+
+  #siguiente-nivel-btn {
+    padding: 12px 22px;
+    font-size: 1rem;
+  }
+
+  .opcion-btn,
+  .game-over button {
+    font-size: 1rem;
+    padding: 10px 16px;
+  }
+}
+
+/* === Altura grande (monitores widescreen en horizontal) === */
+@media (min-height: 769px) {
+  .boton-puerta {
+    width: 70px;
+    height: 70px;
+  }
+
+  #boton-volver {
+    width: 70px;
+    height: 70px;
+  }
+
+  #siguiente-nivel-btn {
+    padding: 15px 28px;
+    font-size: 1.2rem;
+  }
+
+  .opcion-btn,
+  .game-over button {
+    font-size: 1.2rem;
+    padding: 12px 20px;
+  }
+}
+
+
+
+/* ============tutorial container============ */
+
+/* === Pantallas muy bajas (móviles en horizontal) === */
+@media (max-height: 480px) {
+  #tutorial-container {
+    padding: 1em;
+    font-size: 0.6em;
+  }
+
+  .avatar {
+    width: 8em;
+    height: 8em;
+  }
+
+  .avatar-nombre {
+    font-size: 1.2em;
+  }
+
+  .tutorial-text {
+    font-size: 1em;
+  }
+
+  #next-btn {
+    font-size: 0.7em;
+    padding: 0.4em 0.8em;
+  }
+}
+
+/* === Altura media (tablets en horizontal) === */
+@media (min-height: 481px) and (max-height: 768px) {
+  #tutorial-container {
+    padding: 1.2em 2em;
+    font-size: 0.8em;
+  }
+
+  .avatar {
+    width: 11em;
+    height: 11em;
+  }
+
+  .avatar-nombre {
+    font-size: 1.6em;
+  }
+
+  .tutorial-text {
+    font-size: 1.3em;
+  }
+
+  #next-btn {
+    font-size: 0.8em;
+    padding: 0.5em 1em;
+  }
+}
+
+/* === Altura grande (monitores widescreen en horizontal) === */
+@media (min-height: 769px) {
+  #tutorial-container {
+    padding: 1.5em 3em;
+    font-size: 1em;
+  }
+
+  .avatar {
+    width: 14em;
+    height: 14em;
+  }
+
+  .avatar-nombre {
+    font-size: 2em;
+  }
+
+  .tutorial-text {
+    font-size: 1.5em;
+  }
+
+  #next-btn {
+    font-size: 0.9em;
+    padding: 0.6em 1.2em;
+  }
+}
+
+/* AGREGAR ESTOS ESTILOS AL FINAL DE TU ARCHIVO nivel1.css */
+
+/* ====================== MODALES RESPONSIVOS - NUEVOS ESTILOS ====================== */
+
+/* Actualizar tu .pantalla-interactiva existente */
+.pantalla-interactiva {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border: 2px solid #00ffff;
+    border-radius: 15px;
+    padding: 20px;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+    color: white;
+    font-family: 'Orbitron', monospace;
+    
+    /* Responsividad base */
+    width: 90vw;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Inputs para candados y respuesta final */
+.pantalla-interactiva input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    background: rgba(0, 20, 40, 0.9);
+    border: 2px solid #00ffff;
+    border-radius: 8px;
+    color: #00ffff;
+    font-size: 16px;
+    text-align: center;
+    font-family: 'Orbitron', monospace;
+    box-sizing: border-box;
+}
+
+.pantalla-interactiva input[type="text"]:focus {
+    outline: none;
+    border-color: #00ff88;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+/* Actualizar botones de pantalla interactiva */
+.pantalla-interactiva button {
+    padding: 12px 20px;
+    margin: 8px 5px;
+    background: linear-gradient(135deg, #00ffff, #0099cc);
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    min-width: 120px;
+}
+
+.pantalla-interactiva button:hover {
+    background: linear-gradient(135deg, #00ff88, #00cc66);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+}
+
+.pantalla-interactiva button:disabled {
+    background: #666;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Feedback messages */
+#feedback-mision,
+#feedback-candado {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    min-height: 20px;
+}
+
+/* Títulos actualizados */
+.pantalla-interactiva h2 {
+    color: #00ffff;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.pantalla-interactiva h3 {
+    color: #00ffff;
+    text-align: center;
+    margin-bottom: 12px;
+    font-size: 20px;
+}
+
+.pantalla-interactiva p {
+    margin: 10px 0;
+    line-height: 1.4;
+    text-align: center;
+}
+
+/* Contenedores organizados */
+.input-container {
+    margin: 20px 0;
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.tabla-container {
+    margin: 15px 0;
+    overflow-x: auto;
+}
+
+.enunciado-mision {
+    background: rgba(0, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #00ffff;
+    margin: 15px 0;
+    text-align: left;
+}
+
+.mensaje-error {
+    background: rgba(255, 0, 0, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #ff4444;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.mensaje-transicion {
+    background: rgba(0, 255, 0, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #00ff88;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.mision-final {
+    background: rgba(255, 215, 0, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #ffd700;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.instrucciones-contenido {
+    background: rgba(0, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    text-align: left;
+    line-height: 1.5;
+}
+
+/* ====================== MEDIA QUERIES PARA MODALES ====================== */
+
+/* Tablets y pantallas medianas (768px y menos) */
+@media screen and (max-width: 768px) {
+    .pantalla-interactiva {
+        width: 95vw;
+        padding: 15px;
+        max-height: 85vh;
+    }
+    
+    .pantalla-interactiva h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    
+    
+    .pantalla-interactiva button {
+        width: 100%;
+        margin: 5px 0;
+        padding: 14px;
+    }
+    
+    .pantalla-interactiva input[type="text"] {
+        font-size: 14px;
+    }
+    
+    .button-container {
+        flex-direction: column;
+    }
+}
+
+/* Móviles (480px y menos) */
+@media screen and (max-width: 480px) {
+    .pantalla-interactiva {
+        width: 98vw;
+        padding: 10px;
+        max-height: 90vh;
+    }
+    
+    .pantalla-interactiva h2 {
+        font-size: 18px;
+    }
+    
+    .pantalla-interactiva button {
+        font-size: 12px;
+        padding: 12px;
+    }
+    
+    .pantalla-interactiva input[type="text"] {
+        font-size: 12px;
+        padding: 10px;
+    }
+    
+    .enunciado-mision {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+/* Pantallas muy pequeñas (320px y menos) */
+@media screen and (max-width: 320px) {
+    .pantalla-interactiva {
+        width: 100vw;
+        height: 100vh;
+        max-height: none;
+        border-radius: 0;
+        padding: 8px;
+    }
+}
+
+/* Orientación landscape en móviles */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .pantalla-interactiva {
+        max-height: 95vh;
+        width: 90vw;
+    }
+    
+    .pantalla-interactiva h2 {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+    
+}
+
+/* AVISO DE ORIENTACIÓN - AGREGAR ESTO TAMBIÉN */
+.orientation-warning {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+    z-index: 9999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    padding: 20px;
+}
+
+.rotate-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 30px;
+    background: #ff6b6b;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: rotatePhone 2s infinite ease-in-out;
+    position: relative;
+}
+
+.rotate-icon::before {
+    content: "📱";
+    font-size: 40px;
+    transform: rotate(90deg);
+}
+
+.orientation-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ff9999;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(255, 153, 153, 0.3);
+}
+
+.orientation-subtext {
+    font-size: 1rem;
+    color: #a8c5ff;
+    opacity: 0.8;
+    max-width: 300px;
+    line-height: 1.4;
+}
+
+@keyframes rotatePhone {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-5deg) scale(1.05); }
+    75% { transform: rotate(5deg) scale(1.05); }
+}
+
+/* Mostrar aviso en orientación vertical en móviles/tablets */
+@media screen and (max-width: 1024px) and (orientation: portrait) {
+    .orientation-warning {
+        display: flex;
+    }
+    
+    #game-container,
+    .pantalla-interactiva,
+    #boton-volver {
+        display: none !important;
+    }
+}
+
+/* ======================== */
+/* ===== TIMER Y PUNTAJE RESPONSIVOS ===== */
+/* ======================== */
+
+/* Timer - mantener en la esquina superior derecha */
+#timer.contador {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: clamp(1.2rem, 3vw, 2.5rem);
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: clamp(8px, 1.5vw, 16px);
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+    min-width: clamp(80px, 15vw, 160px);
+    text-align: center;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+}
+
+/* ===== Ajustar el puntaje al centro superior ===== */
+#puntaje-display {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: clamp(6px, 1.5vw, 12px);
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: clamp(1rem, 2.2vw, 1.5rem);
+    font-weight: bold;
+    border: 2px solid #ffffff;
+    z-index: 1200;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+    min-width: clamp(100px, 20vw, 200px);
+    text-align: center;
+}
+
+/* Tablets (768px y menos) */
+@media (max-width: 768px) {
+    #timer.contador {
+        top: 15px;
+        right: 15px;
+        font-size: clamp(1rem, 4vw, 1.8rem);
+        padding: clamp(6px, 1.2vw, 12px);
+        min-width: clamp(70px, 12vw, 120px);
+        border-width: 1.5px;
+    }
+    
+    #puntaje-display {
+        top: clamp(65px, 10vh, 85px);
+        right: 15px;
+        font-size: clamp(0.7rem, 2.5vw, 1rem);
+        padding: clamp(5px, 1vw, 10px);
+        min-width: clamp(70px, 12vw, 120px);
+        border-width: 1.5px;
+    }
+}
+
+/* Móviles (480px y menos) */
+@media (max-width: 480px) {
+    #timer.contador {
+        top: 10px;
+        right: 10px;
+        font-size: clamp(0.9rem, 5vw, 1.4rem);
+        padding: clamp(5px, 1vw, 8px);
+        min-width: clamp(60px, 18vw, 90px);
+        border-width: 1px;
+        border-radius: 6px;
+    }
+    
+    #puntaje-display {
+        top: clamp(50px, 8vh, 65px);
+        right: 10px;
+        font-size: clamp(0.6rem, 3vw, 0.9rem);
+        padding: clamp(4px, 0.8vw, 6px);
+        min-width: clamp(60px, 18vw, 90px);
+        border-width: 1px;
+        border-radius: 4px;
+    }
+}
+
+/* Móviles muy pequeños (320px y menos) */
+@media (max-width: 320px) {
+    #timer.contador {
+        top: 8px;
+        right: 8px;
+        font-size: 1rem;
+        padding: 4px 6px;
+        min-width: 55px;
+        border-radius: 4px;
+    }
+    
+    #puntaje-display {
+        top: 45px;
+        right: 8px;
+        font-size: 0.7rem;
+        padding: 3px 5px;
+        min-width: 55px;
+        border-radius: 3px;
+    }
+}
+
+/* Orientación horizontal en móviles */
+@media (max-width: 768px) and (orientation: landscape) {
+    #timer.contador {
+        top: 8px;
+        right: 8px;
+        font-size: clamp(0.8rem, 3vw, 1.2rem);
+        padding: 4px 8px;
+        min-width: clamp(50px, 12vw, 80px);
+    }
+    
+    #puntaje-display {
+        top: clamp(40px, 7vh, 50px);
+        right: 8px;
+        font-size: clamp(0.6rem, 2.5vw, 0.8rem);
+        padding: 3px 6px;
+        min-width: clamp(50px, 12vw, 80px);
+    }
+}
+
+/* Pantallas grandes (1200px y más) */
+@media (min-width: 1200px) {
+    #timer.contador {
+        top: 25px;
+        right: 25px;
+        font-size: 2.8rem;
+        padding: 18px;
+        min-width: 180px;
+    }
+    
+    #puntaje-display {
+        top: 130px;
+        right: 25px;
+        font-size: 1.3rem;
+        padding: 14px;
+        min-width: 180px;
+    }
+}
+
+/* Contenedor de tabla mejorado */
+.tabla-container {
+    margin: 20px;
+    margin-top: clamp(120px, 18vh, 160px); /* BAJA un poco más */
+    margin-right: 20px; /* Ya no necesitamos tanto espacio a la derecha */
+    margin-left: 20px;
+    max-width: calc(100vw - 40px);
+    padding: 8px;
+}
+
+/* Tabla principal */
+/* ===== Columnas más angostas ===== */
+.tabla-mision {
+    width: 75%; /* Más compacta */
+    min-width: clamp(400px, 65vw, 700px); /* Se ajusta mejor */
+    font-size: clamp(8px, 0.8vw, 12px);
+}
+
+.tabla-mision th,
+.tabla-mision td {
+    padding: clamp(8px, 1.2vw, 15px);
+    text-align: center;
+    border: 1px solid #00ffff;
+    word-wrap: break-word;
+    vertical-align: middle;
+}
+
+.tabla-mision th {
+    background: linear-gradient(135deg, #0066cc, #004499);
+    color: #00ffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: clamp(10px, 1.2vw, 14px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.tabla-mision td {
+    background: rgba(0, 40, 80, 0.6);
+    transition: background-color 0.3s ease;
+}
+
+.tabla-mision td:hover {
+    background: rgba(0, 60, 120, 0.8);
+}
+
+.tabla-mision input {
+    width: 100%;
+    padding: clamp(6px, 1vw, 10px);
+    background: rgba(0, 20, 40, 0.9);
+    border: 1px solid #00ffff;
+    border-radius: 4px;
+    color: #00ffff;
+    text-align: center;
+    font-size: clamp(10px, 1.2vw, 14px);
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.tabla-mision input:focus {
+    outline: none;
+    border-color: #00ff88;
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+    background: rgba(0, 40, 80, 0.9);
+}
+
+/* ======================== */
+/* ===== TABLETS (768px y menos) ===== */
+/* ======================== */
+@media (max-width: 768px) {
+    .tabla-container {
+        margin: 10px;
+        margin-right: clamp(160px, 25vw, 220px); /* MÁS ESPACIO */
+        margin-top: clamp(140px, 20vh, 180px); /* MÁS ESPACIO ARRIBA */
+        max-width: calc(100vw - clamp(180px, 27vw, 240px));
+        padding: 6px;
+    }
+    
+    .tabla-mision {
+        font-size: clamp(10px, 1.8vw, 13px);
+        min-width: clamp(400px, 75vw, 600px);
+    }
+    
+    .tabla-mision th,
+    .tabla-mision td {
+        padding: clamp(6px, 1vw, 10px);
+    }
+    
+    .tabla-mision input {
+        padding: clamp(4px, 0.8vw, 8px);
+        font-size: clamp(9px, 1.5vw, 12px);
+    }
+}
+
+/* ======================== */
+/* ===== MÓVILES (480px y menos) ===== */
+/* ======================== */
+@media (max-width: 480px) {
+    .tabla-container {
+        margin: 8px;
+        margin-right: clamp(100px, 28vw, 130px); /* MÁS ESPACIO */
+        margin-top: clamp(120px, 22vh, 150px); /* MÁS ESPACIO ARRIBA */
+        max-width: calc(100vw - clamp(120px, 30vw, 150px));
+        padding: 5px;
+    }
+    
+    .tabla-mision {
+        font-size: 11px;
+        min-width: 350px; /* Mínimo legible */
+    }
+    
+    .tabla-mision th,
+    .tabla-mision td {
+        padding: 5px 3px;
+    }
+    
+    .tabla-mision th {
+        font-size: 9px;
+    }
+    
+    .tabla-mision input {
+        padding: 4px;
+        font-size: 10px;
+    }
+}
+
+/* ======================== */
+/* ===== MÓVILES MUY PEQUEÑOS (320px y menos) ===== */
+/* ======================== */
+@media (max-width: 320px) {
+    .tabla-container {
+        margin: 5px;
+        margin-top: 80px;
+        margin-right: 70px;
+        max-width: calc(100vw - 80px);
+        padding: 3px;
+    }
+    
+    .tabla-mision {
+        font-size: 9px;
+        min-width: 280px;
+    }
+    
+    .tabla-mision th,
+    .tabla-mision td {
+        padding: 3px 1px;
+    }
+    
+    .tabla-mision th {
+        font-size: 8px;
+    }
+    
+    .tabla-mision input {
+        padding: 2px;
+        font-size: 8px;
+    }
+}
+
+/* ======================== */
+/* ===== ORIENTACIÓN HORIZONTAL EN MÓVILES ===== */
+/* ======================== */
+@media (max-width: 768px) and (orientation: landscape) {
+    .tabla-container {
+        margin: 5px;
+        margin-right: clamp(90px, 18vw, 120px); /* MÁS ESPACIO */
+        margin-top: clamp(80px, 15vh, 100px); /* MÁS ESPACIO ARRIBA */
+        max-width: calc(100vw - clamp(110px, 20vw, 140px));
+        padding: 4px;
+    }
+    
+    .tabla-mision {
+        font-size: clamp(9px, 1.5vw, 12px);
+        min-width: clamp(300px, 60vw, 500px);
+    }
+    
+    .tabla-mision th,
+    .tabla-mision td {
+        padding: 4px 2px;
+    }
+    
+    .tabla-mision input {
+        padding: 3px;
+        font-size: clamp(8px, 1.2vw, 10px);
+    }
+}
+
+/* ======================== */
+/* ===== PANTALLAS GRANDES (1200px y más) ===== */
+/* ======================== */
+@media (min-width: 1200px) {
+    .tabla-container {
+        margin: 20px;
+        margin-right: 320px; /* Espacio fijo para timer y puntaje grandes */
+        max-width: calc(100vw - 350px);
+        padding: 12px;
+    }
+    
+    .tabla-mision {
+        font-size: 16px;
+        min-width: 900px;
+    }
+    
+    .tabla-mision th,
+    .tabla-mision td {
+        padding: 15px;
+    }
+    
+    .tabla-mision th {
+        font-size: 14px;
+    }
+    
+    .tabla-mision input {
+        padding: 12px;
+        font-size: 14px;
+    }
+}

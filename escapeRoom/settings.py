@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os #Utilizado para la privacidad de las credenciales de la cuenta de google, para la autenticacion
+#de las demas cuentas
+from dotenv import load_dotenv #Utilizados para la carga del archivo env, que guarda las credenciales privadas
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,7 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'escape_Juego'
+    'escape_Juego',
+    'django.contrib.sites',  # Necesario para allauth
+    'allauth',  # Core allauth
+    'allauth.account',  # Manejo de cuentas
+    'allauth.socialaccount',  # Cuentas sociales
+    'allauth.socialaccount.providers.google',  # Proveedor de Google
 ]
 
 MIDDLEWARE = [
@@ -48,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware' #De Allauth
 ]
 
 ROOT_URLCONF = 'escapeRoom.urls'
@@ -116,8 +127,26 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS=[
+    BASE_DIR / 'escape_juego/static',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+load_dotenv() #Carga esas variables de entorno, en la memoria del sistema operativo, para que cuando sea necesario
+#El programa lo utilice
+
+SECRET_KEY = os.getenv('SECRET_KEY') #Lee la clave secreta, y evita que se encuentre en el codigo
+#Asi como tambien, se encuentre cargada en el repo de github al publico
+
+#Utilizada para la correcta lectura de la variable DEBUG
+DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 't')
+
+LOGIN_REDIRECT_URL = 'despues_login'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_ONLY = True
+ACCOUNT_EMAIL_VERIFICATION = 'none' # <-- Agrega esta línea

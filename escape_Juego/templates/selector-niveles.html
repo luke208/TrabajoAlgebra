@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Selector de Niveles - Hacker Escape Room</title>
+  <link rel="stylesheet" href="{% static 'css/selector-niveles.css' %}">
+</head>
+<body>
+    <div class="image-container">
+        <img src="{% static 'imagenes/pexels-cottonbro-8720589.jpg' %}" alt="Selector de Niveles">
+    </div>
+  <div class="selector-container">
+    <h1>SELECCIONA UN NIVEL</h1>
+    <div class="levels" data-unlocked-levels="{{ unlocked_levels }}">
+        {% for sala in todas_las_salas %}
+            {% if sala.id <= unlocked_levels %}
+                <!-- Botón desbloqueado -->
+                <a href="#" class="level unlocked" data-sala-id="{{ sala.id }}">
+                    Nivel {{ sala.id }}
+                </a>
+            {% else %}
+                <!-- Botón bloqueado -->
+                <a href="javascript:void(0)" class="level locked">
+                    Nivel {{ sala.id }}
+                </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+
+
+  <!-- Pantalla Hacker (Matrix Effect) -->
+<div id="pantallaCarga" style="display: none;" class="pantalla-hacker">
+  <canvas id="matrixCanvas"></canvas>
+  <div class="contenedor-texto">
+    <h1 class="hacker-texto">STAGE 1</h1>
+    <p class="hacker-cargando">Cargando...</p>
+  </div>
+</div>
+
+
+<audio id="sonidoInicio">
+  <source src="{% static 'audios/sonido-stage.wav' %}" type="audio/wav">
+</audio>
+
+<!-- Script para pasar la URL base de los estaticos al JS -->
+    <script>
+        window.STATIC_URL_BASE = "{% static '' %}";
+    </script>
+  <script src="{% static 'js/selector-niveles.js' %}"></script>
+</body>
+</html>
