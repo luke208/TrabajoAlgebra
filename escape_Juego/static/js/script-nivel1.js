@@ -126,7 +126,6 @@ function obtenerPartidaId() {
         return parseInt(partidaFromUrl, 10);
     }
     
-    console.error('No se pudo obtener PARTIDA_ID de ninguna fuente');
     return null;
 }
 
@@ -136,7 +135,6 @@ function inicializarPartidaId() {
         function tryGetPartidaId() {
             const partidaId = obtenerPartidaId();
             if (partidaId) {
-                console.log('✅ PARTIDA_ID inicializado:', partidaId);
                 resolve(partidaId);
             } else {
                 // Reintentar después de un pequeño delay
@@ -153,7 +151,6 @@ function actualizarPuntajeEnPantalla(nuevoPuntaje) {
     if (puntajeDisplay) {
         puntajeDisplay.textContent = `Puntaje: ${puntajeActual.toFixed(2)}`;
     }
-    console.log(`💰 Puntaje actualizado: ${puntajeActual}`);
 }
 
 // 🆕 FUNCIÓN PARA MANEJAR REINICIO DE NIVEL
@@ -200,7 +197,6 @@ async function recargarPartida() {
             throw new Error('No se pudo obtener PARTIDA_ID');
         }
 
-        console.log('🔄 Recargando partida...');
         
         // Mostrar indicador de carga en el botón
         const botonReiniciar = document.querySelector('#reiniciar-partida-btn');
@@ -224,13 +220,11 @@ async function recargarPartida() {
         }
 
         const data = await response.json();
-        console.log('✅ Partida reiniciada:', data);
         
         // Recargar la página para empezar fresh
         window.location.reload();
         
     } catch (error) {
-        console.error('❌ Error recargando partida:', error);
         
         // Restaurar botón en caso de error
         const botonReiniciar = document.querySelector('#reiniciar-partida-btn');
@@ -296,7 +290,7 @@ async function verificarCandado(respuestaUsuario, respuestaCorrecta) {
         };
 
     } catch (error) {
-        console.error('Error verificando candado:', error);
+        
         throw error;
     }
 }
@@ -344,7 +338,6 @@ async function verificarCelda(respuestaUsuario, respuestaCorrecta) {
         };
 
     } catch (error) {
-        console.error('Error verificando celda:', error);
         throw error;
     }
 }
@@ -393,7 +386,6 @@ async function verificarPreguntaFinal(respuestaUsuario, respuestaCorrecta) {
         };
 
     } catch (error) {
-        console.error('Error verificando pregunta final:', error);
         throw error;
     }
 }
@@ -419,12 +411,10 @@ async function completarNivel() {
         }
 
         const data = await response.json();
-        console.log('🎉 Nivel completado:', data);
         
         return data;
 
     } catch (error) {
-        console.error('Error completando nivel:', error);
         throw error;
     }
 }
@@ -521,11 +511,9 @@ async function sincronizarTiempo() {
     try {
         const partidaId = await inicializarPartidaId();
         if (!partidaId) {
-            console.warn('⚠️ No se pudo obtener PARTIDA_ID para sincronizar tiempo');
             return;
         }
 
-        console.log(`🔍 Sincronizando tiempo para partida ${partidaId}...`);
         
         const response = await fetch(`/tiempo_restante/${partidaId}/`);
         
@@ -539,7 +527,6 @@ async function sincronizarTiempo() {
         tiempoRestante = data.tiempo_restante;
         ultimaSincronizacion = Date.now();
         
-        console.log(`⏰ Tiempo sincronizado: ${tiempoRestante} segundos`);
         
         // Verificar game over
         if (data.tiempo_agotado) {
@@ -552,11 +539,6 @@ async function sincronizarTiempo() {
         actualizarTimer();
         
     } catch (error) {
-        console.error('❌ Error sincronizando tiempo:', error);
-        
-        // 🔥 NO detener el cronómetro local por errores de red
-        console.log('⚠️ Continuando con cronómetro local...');
-        
         // Solo mostrar alerta si es un error crítico recurrente
         if (error.message.includes('500')) {
             console.warn('🚨 Error del servidor - Revisar backend de Django');
@@ -592,7 +574,6 @@ function iniciarCronometro() {
     // Sincronizar cuando la pestaña vuelve a estar activa
     document.addEventListener('visibilitychange', () => {
         if (!document.hidden) {
-            console.log('👁️ Pestaña activa - Sincronizando tiempo...');
             sincronizarTiempo();
         }
     });
@@ -607,7 +588,6 @@ async function mostrarGameOver() {
             return; // Falsa alarma, continuar
         }
     } catch (error) {
-        console.error('Error verificando game over:', error);
     }
     
     gameOverScreen.style.display = 'flex';
@@ -621,11 +601,9 @@ async function sincronizarPuntajeInicial() {
     try {
         const partidaId = await inicializarPartidaId();
         if (!partidaId) {
-            console.warn('⚠️ No se pudo obtener PARTIDA_ID para sincronizar puntaje');
             return;
         }
 
-        console.log(`🔄 Sincronizando puntaje inicial para partida ${partidaId}...`);
         
         const response = await fetch(`/puntaje_actual/${partidaId}/`);
         
@@ -638,13 +616,9 @@ async function sincronizarPuntajeInicial() {
         // Actualizar puntaje desde servidor
         actualizarPuntajeEnPantalla(data.puntaje_actual);
         
-        console.log(`✅ Puntaje sincronizado: ${data.puntaje_actual} puntos`);
         
     } catch (error) {
-        console.error('❌ Error sincronizando puntaje inicial:', error);
-        
         // Mantener valor por defecto si hay error
-        console.log('⚠️ Usando puntaje por defecto: 100.00');
         actualizarPuntajeEnPantalla(100.00);
     }
 }
@@ -832,7 +806,6 @@ function cambiarHabitacion(habitacion, boton) {
 function inicializarMision() {
     const scriptEl = document.getElementById('mision-data');
     if (!scriptEl) {
-        console.error('No se encontró el script #mision-data con JSON.');
         return;
     }
     try {
@@ -853,7 +826,6 @@ function inicializarMision() {
         });
 
     } catch (e) {
-        console.error('Error parseando misiones JSON:', e);
     }
 }
 
@@ -975,24 +947,14 @@ for (let filaIndex = 0; filaIndex < mision.filas_tabla.length && !errorCritico; 
                 feedbackDiv.style.color = '#007bff';
                 
                 try {
-                    console.log(`🔍 Verificando celda [${fila.order}][${header}]: "${respuestaUsuario}" vs "${respuestaCorrecta}"`);
                     
                     const resultado = await verificarCelda(respuestaUsuario, respuestaCorrecta);
 
-                    // 🔍 DEBUG: Logging detallado
-                    console.log('=== RESPUESTA DEL BACKEND ===');
-                    console.log('Resultado completo:', resultado);
-                    console.log('Correcta:', resultado.correcta);
-                    console.log('Puntaje actual:', resultado.puntaje_actual);
-                    console.log('Debe reiniciar:', resultado.debe_reiniciar);
-
                     // Actualizar puntaje
                     if (resultado.puntaje_actual !== undefined) {
-                    console.log(`💰 Actualizando puntaje en pantalla: ${puntajeActual} -> ${resultado.puntaje_actual}`);
                     actualizarPuntajeEnPantalla(resultado.puntaje_actual);
                     }
                     
-                    console.log(`📊 Resultado recibido:`, resultado);
                     
                     if (resultado.debe_reiniciar) {
                         return false;
@@ -1003,19 +965,16 @@ for (let filaIndex = 0; filaIndex < mision.filas_tabla.length && !errorCritico; 
                     if (resultado.correcta) {
                         input.style.backgroundColor = '#e8f5e8';
                         input.style.border = '2px solid #4caf50';
-                        console.log(`✅ Celda correcta`);
                     } else {
                         todasCorrectas = false;
                         input.style.backgroundColor = '#ffebee';
                         input.style.border = '2px solid #f44336';
-                        console.log(`❌ Celda incorrecta - Puntaje debería haber bajado`);
                     }
                     
                     // ✅ PAUSA MÁS LARGA para asegurar procesamiento
                     await new Promise(resolve => setTimeout(resolve, 300));
                     
                 } catch (error) {
-                    console.error('❌ Error crítico verificando celda:', error);
                     errorCritico = true;
                     todasCorrectas = false;
                     
@@ -1105,11 +1064,6 @@ function mostrarCandadoIntermedio(mision, idCompu) {
         verificarBtn.disabled = true;
         verificarBtn.textContent = 'Verificando...';
         
-        // Debug: Mostrar información en consola
-        console.log('=== DEBUG CANDADO ===');
-        console.log('Misión ID:', mision.id_mision);
-        console.log('Respuesta usuario:', respuestaUsuario);
-        console.log('Respuesta correcta:', mision.candado_respuesta_correcta);
         
         try {
             const resultado = await verificarCandado(respuestaUsuario, mision.candado_respuesta_correcta);
@@ -1118,7 +1072,6 @@ function mostrarCandadoIntermedio(mision, idCompu) {
                 return; // Se reiniciará el nivel automáticamente
             }
             
-            console.log('Respuesta del backend:', resultado);
             
             if (resultado.correcta === true) {
                 feedbackDiv.textContent = '¡Candado desbloqueado! ✅';
@@ -1129,8 +1082,6 @@ function mostrarCandadoIntermedio(mision, idCompu) {
                     misionesCompletadas[mision.id_mision].tabla && 
                     misionesCompletadas[mision.id_mision].candado
                 );
-                
-                console.log('Estado misión actualizado:', misionesCompletadas[mision.id_mision]);
                 
                 setTimeout(() => {
                     pantalla.remove();
@@ -1152,7 +1103,6 @@ function mostrarCandadoIntermedio(mision, idCompu) {
                 verificarBtn.textContent = 'Verificar';
             }
         } catch (error) {
-            console.error('Error completo verificando candado:', error);
             feedbackDiv.textContent = `Error: ${error.message}`;
             feedbackDiv.style.color = 'orange';
             
@@ -1285,7 +1235,6 @@ function mostrarMision(idCompu) {
                             await completarNivel();
                             setTimeout(() => mostrarNivelCompletado(), 1200);
                         } catch (error) {
-                            console.error('Error completando nivel:', error);
                             setTimeout(() => mostrarNivelCompletado(), 1200); // Continuar de todos modos
                         }
                     } else {
@@ -1302,7 +1251,6 @@ function mostrarMision(idCompu) {
                         verificarBtn.textContent = 'Verificar';
                     }
                 } catch (error) {
-                    console.error('Error verificando respuesta final:', error);
                     feedbackDiv.textContent = 'Error de conexión. Inténtalo de nuevo. ⚠️';
                     feedbackDiv.style.color = 'orange';
                     
@@ -1401,7 +1349,6 @@ function mostrarMision(idCompu) {
                     feedbackDiv.style.color = 'red';
                 }
             } catch (error) {
-                console.error('Error verificando tabla:', error);
                 feedbackDiv.textContent = 'Error de conexión. Inténtalo de nuevo. ⚠️';
                 feedbackDiv.style.color = 'orange';
             }
@@ -1503,11 +1450,9 @@ if (botonVolver) {
 
 // ---------------------- INICIALIZACIÓN ----------------------
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('🚀 Inicializando juego...');
     
     try {
         await inicializarPartidaId();
-        console.log('✅ PARTIDA_ID listo, continuando inicialización...');
         
         inicializarMision();
         
@@ -1519,7 +1464,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         actualizarTimer();
         
     } catch (error) {
-        console.error('❌ Error inicializando:', error);
         showCustomModal('Error: No se pudo inicializar la partida. Recarga la página.');
     }
 
