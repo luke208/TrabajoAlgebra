@@ -13,8 +13,6 @@ env/
 # Archivos de configuración con información sensible
 .env
 
-# Archivos de medios subidos
-media/
 
 # Archivos de log
 *.log

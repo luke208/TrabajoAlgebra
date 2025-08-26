@@ -1,0 +1,760 @@
+[
+{
+  "model": "escape_Juego.sala",
+  "pk": 1,
+  "fields": {
+    "nombre": "Nivel 1",
+    "descripcion": "Numeros Complejos",
+    "orden": 1,
+    "fecha_desbloqueo": null
+  }
+},
+{
+  "model": "escape_Juego.sala",
+  "pk": 2,
+  "fields": {
+    "nombre": "Nivel 2",
+    "descripcion": "Polinomios",
+    "orden": 2,
+    "fecha_desbloqueo": null
+  }
+},
+{
+  "model": "escape_Juego.sala",
+  "pk": 3,
+  "fields": {
+    "nombre": "Nivel 3",
+    "descripcion": "Matrices",
+    "orden": 3,
+    "fecha_desbloqueo": null
+  }
+},
+{
+  "model": "escape_Juego.sala",
+  "pk": 4,
+  "fields": {
+    "nombre": "Nivel 4",
+    "descripcion": "Determinantes",
+    "orden": 4,
+    "fecha_desbloqueo": null
+  }
+},
+{
+  "model": "escape_Juego.mision",
+  "pk": 1,
+  "fields": {
+    "sala": 1,
+    "titulo": "MISIÓN 1: CALCULAR LAS RAÍCES ALTERADAS",
+    "enunciado_mision": "El hacker modificó el argumento de z2. Usa la fórmula polar para calcular las 4 raíces de −16, pero ¡cuidado! z2 tiene un argumento alterado: θ2=5π/4+0.3 rad\"",
+    "instrucciones": "1. Calcula las 4 raíces cuartas de z=−16 usando:\r\n    zk=2(cos ((π+2kπ)/4)+i sin ((π+2kπ)/4))\r\n2. ¡Hackeo detectado! El argumento de z2 fue alterado:\r\n   θ2=5π/4+0.3 rad\r\n\r\nRegistra tus resultados en esta tabla:",
+    "candado_intermedio_pregunta": "Ingresa la parte imaginaria de z2 alterada ( a 4 decimales):",
+    "candado_intermedio_respuesta": "-1.7690",
+    "target": "compu1",
+    "order": 0,
+    "pregunta_final": "",
+    "respuesta_final": null
+  }
+},
+{
+  "model": "escape_Juego.mision",
+  "pk": 2,
+  "fields": {
+    "sala": 1,
+    "titulo": "MISIÓN 2: RESTAURAR LA SIMETRIA CON GEOGEBRA",
+    "enunciado_mision": "Ingresa las raíces en GeoGebra. Si el polígono no es simétrico bajo rotación de 90°, corrige z2  hasta restaurar el cuadrado perfecto",
+    "instrucciones": "1.Abrir GeoGebra.\r\n2.Ingresar puntos:\r\n\r\nP0=(2cos(π/4),2sin(π/4))\r\nP1=(2cos(3π/4),2sin(3π/4))\r\nP2alterado=(2cos(5π/4+0.3),2sin(5π/4+0.3))\r\nP3=(2cos(7π/4),2sin(7π/4))\r\n\r\n3.\tCrear polígono →Conectar P0-P1-P2alterado-P3.\r\n4.\tRotar 90°→ Origen, ángulo 90°.\r\nEl polígono no coincide\r\n5.\tCorregir P2 con: P2corregido=(2cos(5π/4),2sin(5π/4))\r\n6.\t¡Éxito! El polígono ahora es un cuadrado perfecto y coincide al rotar.",
+    "candado_intermedio_pregunta": "Ingresa el área del polígono corregido",
+    "candado_intermedio_respuesta": "8",
+    "target": "compu1",
+    "order": 1,
+    "pregunta_final": null,
+    "respuesta_final": null
+  }
+},
+{
+  "model": "escape_Juego.mision",
+  "pk": 3,
+  "fields": {
+    "sala": 1,
+    "titulo": "MISIÓN 3: DESCIFRAR EL MENSAJE OCULTO",
+    "enunciado_mision": "Cada argumento θk esconde una letra. Usa la fórmula dk=⌊ θk×100 ⌋ mod27 y el alfabeto: A=0, B=1, ..., Ñ=14, ..., Z=26.",
+    "instrucciones": "1. Para cada θk corregido, calcular: dk=⌊θk×100⌋mod  27 \r\n2. Convertir dk a letras usando alfabeto: A=0, B=1, …, Ñ=14, …, Z=26.\r\n3. Anota el mensaje descifrado:",
+    "candado_intermedio_pregunta": "Cantidad de letras distintas del mensaje",
+    "candado_intermedio_respuesta": "4",
+    "target": "compu1",
+    "order": 2,
+    "pregunta_final": null,
+    "respuesta_final": null
+  }
+},
+{
+  "model": "escape_Juego.mision",
+  "pk": 5,
+  "fields": {
+    "sala": 1,
+    "titulo": "Misión 1: CALCULAR LA POSICIÓN INICIAL Y ROTACIÓN",
+    "enunciado_mision": "\"¡ALERTA! Un hacker ha interceptado el vector de navegación del drone. Su trayectoria fue alterada y se dirige a una zona electromagnética letal (|z| > 6). Usa la ecuación de seguridad para ajustar el factor k y salvar el drone.\"",
+    "instrucciones": "1. Partida: El drone está en p = 4 + 3i\r\n2. Rotar 45° antihorario:\r\nZrot= p*e^(iπ/4)=(4+3*i)*((√2)/2 + i*(√2)/2)",
+    "candado_intermedio_pregunta": "Ingresa la parte imaginaria de Zrot (redondeada a 4 decimales)",
+    "candado_intermedio_respuesta": "4.9497",
+    "target": "compu1_4",
+    "order": 0,
+    "pregunta_final": "",
+    "respuesta_final": null
+  }
+},
+{
+  "model": "escape_Juego.mision",
+  "pk": 6,
+  "fields": {
+    "sala": 1,
+    "titulo": "Misión 2: DETECTAR LA ALTERACIÓN Y SIMULAR PELIGRO",
+    "enunciado_mision": "",
+    "instrucciones": "1. Vector alterado por hacker:  Valterado=−2+4i\r\n2. Posición final alterada: Zfinal=Zrot+Valterado\r\n3. Simulación en GeoGebra \r\n\r\nDatos a ingresar:\r\nPosición inicial:  P = (4, 3)\r\nPosición rotada: z_rot = (sqrt(2)/2, 7*sqrt(2)/2)\r\nVector alterado: v_alterado = (-2, 4)\r\nPosición final: zfinal=zrot+valterado\r\n\r\nZona segura:\t|z| ≤ 6\r\nCircunferencia: x^2 + y^2 = 36  \r\n\r\n4.Verificar zona peligrosa: calcular ∣ zfinal ∣",
+    "candado_intermedio_pregunta": "Ingresa la distancia desde el origen a zfinal (redondeada a 2 decimales)",
+    "candado_intermedio_respuesta": "9.04",
+    "target": "compu1_4",
+    "order": 1,
+    "pregunta_final": "",
+    "respuesta_final": null
+  }
+},
+{
+  "model": "escape_Juego.mision",
+  "pk": 7,
+  "fields": {
+    "sala": 1,
+    "titulo": "Misión 3: AJUSTAR VECTOR Y VALIDAR ZONA SEGURA",
+    "enunciado_mision": "",
+    "instrucciones": "1. vector seguro: vseguro=k⋅(−2+4i)\r\n2. Ecuación de seguridad: ∣ zrot+k⋅(−2+4i) ∣≤6",
+    "candado_intermedio_pregunta": "Valor de k (Usar el valor positivo máximo redondeado a 2 decimales)",
+    "candado_intermedio_respuesta": "0.26",
+    "target": "compu1_4",
+    "order": 2,
+    "pregunta_final": "",
+    "respuesta_final": null
+  }
+},
+{
+  "model": "escape_Juego.mision",
+  "pk": 8,
+  "fields": {
+    "sala": 1,
+    "titulo": "Misión 1- CALCULAR LA SEÑAL HACKEADA",
+    "enunciado_mision": "¡CRÍTICO! La IA ha amplificado la señal un 200%. El sistema operativo colapsará en 15 minutos si no ajustas la amplitud al valor seguro. Usa el protocolo de reducción y evita el colapso global.",
+    "instrucciones": "1.\tSeñal original:\r\nz =5(cos45∘+isin45∘)\r\nw =3(cos30∘+isin30∘)\r\n2. ¡Sabotaje detectado! La IA alteró la amplitud:\r\nzhackeada=10(cos45∘+isin45∘),  whackeada=6(cos30∘+isin30∘)\r\n3. Producto hackeado: z⋅w",
+    "candado_intermedio_pregunta": "Módulo de la señal hackeada",
+    "candado_intermedio_respuesta": "60",
+    "target": "compu2",
+    "order": 0,
+    "pregunta_final": "",
+    "respuesta_final": null
+  }
+},
+{
+  "model": "escape_Juego.mision",
+  "pk": 9,
+  "fields": {
+    "sala": 1,
+    "titulo": "Misión 2: ANALIZAR RIESGO CON UMBRALES ALTERADOS",
+    "enunciado_mision": "Calcular el producto de z . w, como su argumento",
+    "instrucciones": "1.¡Nuevo sabotaje! La IA cambió los umbrales de seguridad:\r\nRiesgo de sobrecarga: Módulo > 50\r\nFase inestable: Argumento > 80∘\r\n2.Calcular y Verificar:\r\n∣z⋅w∣\r\narg(z⋅w)",
+    "candado_intermedio_pregunta": "Valor del argumento(grados)",
+    "candado_intermedio_respuesta": "75",
+    "target": "compu2",
+    "order": 1,
+    "pregunta_final": "",
+    "respuesta_final": null
+  }
+},
+{
+  "model": "escape_Juego.mision",
+  "pk": 10,
+  "fields": {
+    "sala": 1,
+    "titulo": "Candado Final Nivel 3",
+    "enunciado_mision": "",
+    "instrucciones": "",
+    "candado_intermedio_pregunta": "Primera cifra decimal del Módulo de la señal hackeada  (60→ 6):",
+    "candado_intermedio_respuesta": "6",
+    "target": "compu2",
+    "order": 2,
+    "pregunta_final": "",
+    "respuesta_final": null
+  }
+},
+{
+  "model": "escape_Juego.mision",
+  "pk": 4,
+  "fields": {
+    "sala": 1,
+    "titulo": null,
+    "enunciado_mision": "",
+    "instrucciones": "",
+    "candado_intermedio_pregunta": null,
+    "candado_intermedio_respuesta": null,
+    "target": "principal",
+    "order": 0,
+    "pregunta_final": "Código de Cifrado",
+    "respuesta_final": "406"
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 1,
+  "fields": {
+    "mision": 1,
+    "nombre_fila": "0",
+    "order": 0
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 5,
+  "fields": {
+    "mision": 3,
+    "nombre_fila": "z0",
+    "order": 0
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 9,
+  "fields": {
+    "mision": 5,
+    "nombre_fila": "Zrot",
+    "order": 0
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 11,
+  "fields": {
+    "mision": 8,
+    "nombre_fila": "z . w",
+    "order": 0
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 12,
+  "fields": {
+    "mision": 9,
+    "nombre_fila": "∣ z⋅w ∣",
+    "order": 0
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 2,
+  "fields": {
+    "mision": 1,
+    "nombre_fila": "1",
+    "order": 1
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 6,
+  "fields": {
+    "mision": 3,
+    "nombre_fila": "z1",
+    "order": 1
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 13,
+  "fields": {
+    "mision": 9,
+    "nombre_fila": "arg(z⋅w)",
+    "order": 1
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 3,
+  "fields": {
+    "mision": 1,
+    "nombre_fila": "2",
+    "order": 2
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 7,
+  "fields": {
+    "mision": 3,
+    "nombre_fila": "z2",
+    "order": 2
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 4,
+  "fields": {
+    "mision": 1,
+    "nombre_fila": "3",
+    "order": 3
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 8,
+  "fields": {
+    "mision": 3,
+    "nombre_fila": "z3",
+    "order": 3
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 1,
+  "fields": {
+    "fila_tabla": 1,
+    "encabezado_columna": "k",
+    "respuesta_correcta": "0",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 2,
+  "fields": {
+    "fila_tabla": 1,
+    "encabezado_columna": "θk (rad)",
+    "respuesta_correcta": "0.7853",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 3,
+  "fields": {
+    "fila_tabla": 1,
+    "encabezado_columna": "zk real",
+    "respuesta_correcta": "1.4142",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 4,
+  "fields": {
+    "fila_tabla": 1,
+    "encabezado_columna": "zk imaginario",
+    "respuesta_correcta": "1.4142",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 5,
+  "fields": {
+    "fila_tabla": 2,
+    "encabezado_columna": "k",
+    "respuesta_correcta": "1",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 6,
+  "fields": {
+    "fila_tabla": 2,
+    "encabezado_columna": "θk (rad)",
+    "respuesta_correcta": "2.3561",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 7,
+  "fields": {
+    "fila_tabla": 2,
+    "encabezado_columna": "zk real",
+    "respuesta_correcta": "-1.4142",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 8,
+  "fields": {
+    "fila_tabla": 2,
+    "encabezado_columna": "zk imaginario",
+    "respuesta_correcta": "1.4142",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 9,
+  "fields": {
+    "fila_tabla": 3,
+    "encabezado_columna": "k",
+    "respuesta_correcta": "2",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 10,
+  "fields": {
+    "fila_tabla": 3,
+    "encabezado_columna": "θk (rad)",
+    "respuesta_correcta": "5π/4+0.3",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 11,
+  "fields": {
+    "fila_tabla": 3,
+    "encabezado_columna": "zk real",
+    "respuesta_correcta": "¡Alterado!",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 12,
+  "fields": {
+    "fila_tabla": 3,
+    "encabezado_columna": "zk imaginario",
+    "respuesta_correcta": "¡Alterado!",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 13,
+  "fields": {
+    "fila_tabla": 4,
+    "encabezado_columna": "k",
+    "respuesta_correcta": "3",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 14,
+  "fields": {
+    "fila_tabla": 4,
+    "encabezado_columna": "θk (rad)",
+    "respuesta_correcta": "5.4977",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 15,
+  "fields": {
+    "fila_tabla": 4,
+    "encabezado_columna": "zk real",
+    "respuesta_correcta": "1.4142",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 16,
+  "fields": {
+    "fila_tabla": 4,
+    "encabezado_columna": "zk imaginario",
+    "respuesta_correcta": "-1.4142",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 17,
+  "fields": {
+    "fila_tabla": 5,
+    "encabezado_columna": "Raíz",
+    "respuesta_correcta": "z0",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 18,
+  "fields": {
+    "fila_tabla": 5,
+    "encabezado_columna": "θk",
+    "respuesta_correcta": "π/4",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 19,
+  "fields": {
+    "fila_tabla": 5,
+    "encabezado_columna": "⌊θk×100⌋",
+    "respuesta_correcta": "78",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 20,
+  "fields": {
+    "fila_tabla": 5,
+    "encabezado_columna": "dk=⌊θk×100⌋mod  27",
+    "respuesta_correcta": "24",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 21,
+  "fields": {
+    "fila_tabla": 5,
+    "encabezado_columna": "Letra",
+    "respuesta_correcta": "X",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 22,
+  "fields": {
+    "fila_tabla": 6,
+    "encabezado_columna": "Raíz",
+    "respuesta_correcta": "z1",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 23,
+  "fields": {
+    "fila_tabla": 6,
+    "encabezado_columna": "θk",
+    "respuesta_correcta": "3π/4",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 24,
+  "fields": {
+    "fila_tabla": 6,
+    "encabezado_columna": "⌊θk×100⌋",
+    "respuesta_correcta": "235",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 25,
+  "fields": {
+    "fila_tabla": 6,
+    "encabezado_columna": "dk=⌊θk×100⌋mod  27",
+    "respuesta_correcta": "19",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 26,
+  "fields": {
+    "fila_tabla": 6,
+    "encabezado_columna": "Letra",
+    "respuesta_correcta": "S",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 27,
+  "fields": {
+    "fila_tabla": 7,
+    "encabezado_columna": "Raíz",
+    "respuesta_correcta": "z2",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 28,
+  "fields": {
+    "fila_tabla": 7,
+    "encabezado_columna": "θk",
+    "respuesta_correcta": "5π/4",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 29,
+  "fields": {
+    "fila_tabla": 7,
+    "encabezado_columna": "⌊θk×100⌋",
+    "respuesta_correcta": "392",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 30,
+  "fields": {
+    "fila_tabla": 7,
+    "encabezado_columna": "dk=⌊θk×100⌋mod  27",
+    "respuesta_correcta": "14",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 31,
+  "fields": {
+    "fila_tabla": 7,
+    "encabezado_columna": "Letra",
+    "respuesta_correcta": "Ñ",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 32,
+  "fields": {
+    "fila_tabla": 8,
+    "encabezado_columna": "Raíz",
+    "respuesta_correcta": "z3",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 33,
+  "fields": {
+    "fila_tabla": 8,
+    "encabezado_columna": "θk",
+    "respuesta_correcta": "7π/4",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 34,
+  "fields": {
+    "fila_tabla": 8,
+    "encabezado_columna": "⌊θk×100⌋",
+    "respuesta_correcta": "549",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 35,
+  "fields": {
+    "fila_tabla": 8,
+    "encabezado_columna": "dk=⌊θk×100⌋mod  27",
+    "respuesta_correcta": "9",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 36,
+  "fields": {
+    "fila_tabla": 8,
+    "encabezado_columna": "Letra",
+    "respuesta_correcta": "J",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 37,
+  "fields": {
+    "fila_tabla": 9,
+    "encabezado_columna": "Real",
+    "respuesta_correcta": "0.7071",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 38,
+  "fields": {
+    "fila_tabla": 9,
+    "encabezado_columna": "Imaginaria",
+    "respuesta_correcta": "4.9497",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 39,
+  "fields": {
+    "fila_tabla": 11,
+    "encabezado_columna": "modulo",
+    "respuesta_correcta": "60",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 40,
+  "fields": {
+    "fila_tabla": 11,
+    "encabezado_columna": "real",
+    "respuesta_correcta": "cos75",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 41,
+  "fields": {
+    "fila_tabla": 11,
+    "encabezado_columna": "imaginaria",
+    "respuesta_correcta": "sin75",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 42,
+  "fields": {
+    "fila_tabla": 12,
+    "encabezado_columna": "Consigna",
+    "respuesta_correcta": "∣ z⋅w ∣",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 43,
+  "fields": {
+    "fila_tabla": 13,
+    "encabezado_columna": "Consigna",
+    "respuesta_correcta": "arg(z⋅w)",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 44,
+  "fields": {
+    "fila_tabla": 13,
+    "encabezado_columna": "Valor",
+    "respuesta_correcta": "75",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 45,
+  "fields": {
+    "fila_tabla": 12,
+    "encabezado_columna": "Valor",
+    "respuesta_correcta": "60",
+    "es_campo_rellenable": true
+  }
+}
+]

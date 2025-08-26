@@ -1,0 +1,132 @@
+/* ==============================
+   ESTILOS PARA LA PÁGINA DE LOGIN
+   ============================== */
+
+/* Estilos generales del body para la página de login */
+body.login-page-body {
+    background: #050505ea; /* Fondo negro profundo */
+    font-family: 'Audiowide', sans-serif; /* Fuente consistente con el tema hacker */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ocupa toda la altura de la ventana */
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Evita barras de desplazamiento */
+}
+
+/* Contenedor principal para centrar el cuadro de login */
+.login-page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Estilos del cuadro de login (la "caja" central) */
+.login-box {
+    margin-top: 17px; /* Ajuste del margen superior */
+    height: auto;
+    background: #131320; /* Fondo gris oscuro para la caja */
+    text-align: center;
+    /* Sombra con efecto de brillo verde/cian */
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5), 0 0 30px rgba(0, 255, 255, 0.3);
+    border-radius: 35px; /* Bordes redondeados */
+    padding: 30px;
+    max-width: 400px; /* Ancho máximo para el diseño responsivo */
+    width: 90%; /* Ancho fluido */
+}
+
+/* Estilo para el ícono de la llave */
+.login-key {
+    height: 100px;
+    font-size: 80px;
+    line-height: 100px;
+    /* Gradiente de verde a cian para el ícono */
+    background: -webkit-linear-gradient(#00FF00, #00FFFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+}
+
+/* Estilo para el título principal del login */
+.login-title {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 2em; /* Título más grande */
+    letter-spacing: 3px;
+    font-weight: bold;
+    color: #00FF00; /* Verde brillante para el título */
+    text-shadow: 0 0 15px #00FF00; /* Efecto de brillo */
+    margin-bottom: 20px;
+}
+
+/* Estilo para la sección del formulario (aunque solo tenga el botón) */
+.login-form {
+    margin-top: 25px;
+    text-align: center; /* Centra el contenido */
+}
+
+/* Estilo para el texto descriptivo */
+.login-text {
+    font-size: 1.1em;
+    color: #00FFFF; /* Cian para el texto */
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+/* Estilo para el botón de Google Login */
+.google-login-button {
+    display: inline-block; /* Permite aplicar padding y margin */
+    background-color: transparent; /* Botón verde brillante */
+    color: #000000; /* Texto negro en el botón */
+    border: 2px solid #00FF00;
+    padding: 10px;
+    font-size: 1.2em;
+    text-decoration: none; /* Quita el subrayado */
+    cursor: pointer;
+    border-radius: 8px; /* Bordes ligeramente más redondeados */
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7); /* Brillo verde */
+    transition: all 0.3s ease-in-out;
+}
+
+.google-login-button:hover {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.9), 0 0 30px rgba(0, 255, 255, 0.5); /* Brillo cian más fuerte */
+    border-color: #00FFFF; /* El borde también se vuelve cian */
+}
+
+/* Estado del botón cuando se presiona */
+.google-login-button:active {
+    transform: scale(0.98); /* Un pequeño efecto de "presionar" */
+    box-shadow: 0 0 35px rgba(0, 255, 255, 1); /* Aumentamos el brillo para el efecto de "luz" */
+    border-color: #00FFFF;
+}
+
+.google-logo {
+    width: 120px; /* Tamaño del logo. Puedes ajustarlo a tu gusto */
+    height: auto;
+    display: block; /* Para que ocupe todo el ancho del enlace */
+}
+
+
+/* Ajustes responsivos para pantallas más pequeñas */
+@media (max-width: 600px) {
+    .login-box {
+        padding: 20px;
+        width: 95%;
+    }
+    .login-title {
+        font-size: 2em;
+    }
+    .login-key {
+        font-size: 60px;
+        height: 80px;
+        line-height: 80px;
+    }
+    .google-login-button {
+        padding: 10px;
+    }
+}

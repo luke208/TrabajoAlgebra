@@ -14,6 +14,12 @@ class NombreJuegoForm(forms.ModelForm):
             'nombre_juego': 'Este nombre será visible para otros jugadores y en el ranking.',
         }
 
+    #Muestra el dato del nombre del usuario
+    def __init__(self, *args, **kwargs):
+        # Es crucial para la validación obtener el usuario actual
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
     #Funcion para limpiar el nombre del juego
     def clean_nombre_juego(self):
         nombre_juego = self.cleaned_data['nombre_juego']

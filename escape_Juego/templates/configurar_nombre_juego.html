@@ -1,33 +1,32 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+{% extends "Layout/base.html" %}
+{% load i18n %}
+{% load static %}
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/menu.css"> <!--Link de los estilos del menu-->
-    <title>Nombre de Juego</title>
-</head>
-<body>
-    <div>
-        <h1>¡Bienvenido Hacker! Como quieres que te digamos?</h1>
-        <p>Asi se te identificará en el juego y en el ranking.</p>
+{% block head_title %}
+    {% trans "Configurar Nombre" %}
+{% endblock head_title %}
 
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li class="{{ message.tags }}">{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }} {# Esto renderiza los campos del formulario como párrafos #}
-            <button type="submit">Guardar Nombre</button>
-        </form>
-    </div>
-</body>
-</html>
+{% block extra_head %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/configurarNombreJuego.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock extra_head %}
+
+{% block content %}
+<div class="config-container">
+    <h1 class="config-title">¡Bienvenido Hacker! ¿Cómo quieres que te digamos?</h1>
+    <p class="config-text">Así se te identificará en el juego y en el ranking.</p>
+
+    <form method="post" class="config-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_nombre_juego">Tu Nombre de Juego (nickname):</label>
+            {{ form.nombre_juego }}
+            <p class="descripcion_campo">Este nombre será visible para otros jugadores y en el ranking.</p>
+        </div>
+        <button type="submit" class="save-button">Guardar</button>
+    </form>
+</div>
+{% endblock content %}
+
+{% block body_class %}config-page-body{% endblock body_class %}

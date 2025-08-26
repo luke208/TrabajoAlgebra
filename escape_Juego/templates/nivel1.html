@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <title>Escape Room - Nivel 1</title>
+  <link rel="stylesheet" href="{% static 'css/nivel1.css' %}">
+</head>
+<body>
+<div class="orientation-warning">
+    <div class="rotate-icon"></div>
+    <div class="orientation-text">Rota tu dispositivo</div>
+    <div class="orientation-subtext">Para una mejor experiencia, usa tu dispositivo en modo horizontal</div>
+</div>
+  <div id="game-container">
+    <img id="game-image" class="fondo" src="{% static 'imagenes/1.jpeg' %}" alt="Pantalla principal">
+  </div>
+
+  <!-- Botón volver con animación chevron -->
+  <button id="boton-volver" style="display:none;">
+    <div class="chevron-container">
+      <div class="chevron"></div>
+      <div class="chevron"></div>
+      <div class="chevron"></div>
+    </div>
+  </button>
+
+  <div id="tutorial-container">
+    <div class="tutorial-box">
+      <div class="avatar-col">
+        <img src="{% static 'imagenes/hacker.jpeg' %}" alt="Avatar" class="avatar">
+        <p class="avatar-nombre">GHOST</p>
+      </div>
+      <div id="tutorial-text" class="tutorial-text"></div>
+    </div>
+    <button id="next-btn">Siguiente</button>
+  </div>
+
+  <!-- GAME OVER -->
+  <div id="gameOverScreen" class="game-over" style="display:none;">
+    <h1>GAME OVER</h1>
+    <p>Te quedaste sin tiempo...</p>
+    <button onclick="reiniciarNivel()">Reintentar</button>
+  </div>
+
+  <div id="timer" class="contador"></div>
+
+  <!-- Modal genérico reutilizable -->
+  <div id="custom-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <p id="modal-message"></p>
+      <button id="modal-close-btn">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- Popup pista al completar una computadora -->
+  <div id="pista-overlay" class="pista-overlay" style="display:none;">
+    <div class="pista-box">
+      <img id="pista-img" alt="Pista desbloqueada" />
+      <button id="pista-close-btn">Cerrar</button>
+    </div>
+  </div>
+
+
+
+  <div id="game-data" 
+     data-partida-id="{{ partida.id }}" 
+     style="display: none;">
+</div>
+
+<div id="puntaje-display">
+    Puntaje: 100.00
+</div>
+
+  <!-- Base URL para estáticos -->
+  <script>
+    window.STATIC_URL_BASE = "{% static '' %}";
+    // ✅ OPCIÓN A: Usar DOMContentLoaded para asegurar que el DOM esté listo
+    document.addEventListener('DOMContentLoaded', function() {
+    const gameData = document.getElementById('game-data');
+    if (gameData && gameData.dataset.partidaId) {
+      window.PARTIDA_ID = parseInt(gameData.dataset.partidaId, 10);
+      console.log('✅ PARTIDA_ID cargado:', window.PARTIDA_ID);
+    } else {
+      console.error('❌ No se pudo obtener game-data o partida-id');
+    }
+   });
+  </script>
+
+  <!-- ✅ JSON CORRECTO (sin anidar scripts) -->
+  {{ misiones_data|json_script:"mision-data" }}
+
+  <script src="{% static 'js/script-nivel1.js' %}"></script>
+</body>
+</html>

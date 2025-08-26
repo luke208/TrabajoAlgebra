@@ -1,46 +1,92 @@
 from django.contrib import admin
-from .models import Jugador, Pregunta, Opcion,Sala,Pista,Intento
+from .models import Jugador, Pregunta, Opcion, Sala, Partida, ProgresoUsuario, Mision, FilaTabla, CeldaTabla
 
-class OpcionInline(admin.TabularInline):  # Muestra las opciones en forma de tabla
+# ======================================================================
+# INLINES para la Misión y la Pregunta
+# ======================================================================
+
+class CeldaTablaInline(admin.TabularInline):
+    """
+    Permite editar las celdas de una fila de tabla.
+    """
+    model = CeldaTabla
+    extra = 1
+
+class FilaTablaInline(admin.StackedInline):
+    """
+    Permite editar las filas de una tabla de misión.
+    """
+    model = FilaTabla
+    extra = 1
+
+class OpcionInline(admin.TabularInline):
+    """Muestra las opciones en forma de tabla."""
     model = Opcion
-    extra = 1  # Cuántas opciones vacías querés que aparezcan por defecto
-    min_num = 4  # Mínimo de opciones
-    can_delete=True #Permite eliminar opciones
+    extra = 1
+    min_num = 0
+    can_delete = True
 
-class PistaInline(admin.TabularInline):
-    model=Pista
-    min_num=1
-    extra=1
-    can_delete=True
+# ======================================================================
+# MODEL ADMINS registrados con el decorador @admin.register
+# ======================================================================
 
+@admin.register(Jugador)
+class JugadorAdmin(admin.ModelAdmin):
+    pass # No necesitas configuraciones especiales, pero lo registramos así.
+
+
+
+@admin.register(Pregunta)
 class PreguntaAdmin(admin.ModelAdmin):
-    list_display = ('enunciado', 'tipo', 'sala', 'dificultad')
-    list_filter = ('tipo', 'sala', 'dificultad')
-    search_fields = ('enunciado',)
+    list_display = ('enunciado', 'tipo', 'sala', 'dificultad', 'target', 'es_pregunta_principal', 'order')
+    list_filter = ('tipo', 'sala', 'dificultad', 'es_pregunta_principal', 'order')
+    search_fields = ('enunciado', 'target', 'order')
 
-    # Define cómo se agrupan y muestran los campos en el formulario de edición/creación
-    fieldsets = (
-        (None, { # Sección principal sin título
-            'fields': ('sala', 'tipo', 'enunciado', 'dificultad'),
-        }),
-        ('Respuesta Correcta para Pregunta Directa', {
-            'fields': ('respuesta_correcta',),
-            'description': 'Este campo es solo para preguntas de tipo "Directa".',
-            # Añadimos una clase CSS para poder manipular este fieldset con JS
-            'classes': ('ocultar-por-defecto', 'directa-fieldset'), # Añade 'ocultar-por-defecto' y un nombre descriptivo
-        }),
-    )
+    def get_inlines(self, request, obj=None):
+        if obj and obj.tipo == 'multiple_choice':
+            return [OpcionInline]
+        return []
+    
+    def get_fields(self, request, obj=None):
+        fields = ['sala', 'tipo', 'enunciado', 'dificultad', 'target', 'order']
+        if obj:
+            if obj.tipo == 'directa':
+                fields.append('respuesta_correcta')
+                fields.append('es_pregunta_principal')
+        else:
+            fields.extend(['respuesta_correcta', 'es_pregunta_principal'])
+        return fields
 
-    # Definimos los inlines que se mostrarán para este modelo
-    # El OpcionInline solo se mostrará/ocultará vía JS
-    inlines = [OpcionInline,PistaInline]
+@admin.register(Sala)
+class SalaAdmin(admin.ModelAdmin):
+    list_display = ('nombre',) # Ejemplo de una configuración básica.
 
-    # Inyectamos JavaScript y CSS personalizados para el Admin
-    class Media:
-        js = ('js/admin_pregunta_condicional.js',) # Ruta a tu JS estático. Asume 'static/js/admin_pregunta_condicional.js'
-        
-# Registro mejorado
-admin.site.register(Jugador) #Registra al jugador
-admin.site.register(Pregunta, PreguntaAdmin) #Re
-admin.site.register(Sala)
-admin.site.register(Intento)
+@admin.register(Partida)
+class PartidaAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(ProgresoUsuario)
+class ProgresoUsuarioAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Opcion)
+class OpcionAdmin(admin.ModelAdmin):
+    pass
+    
+@admin.register(Mision)
+class MisionAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'sala', 'target', 'order')
+    list_filter = ('sala', 'target')
+    inlines = [FilaTablaInline] # Incluye las filas de la tabla en el formulario de Mision
+
+@admin.register(FilaTabla)
+class FilaTablaAdmin(admin.ModelAdmin):
+    """
+    Registra el modelo FilaTabla para poder editarlo y ver sus celdas.
+    """
+    list_display = ('mision', 'nombre_fila', 'order')
+    inlines = [CeldaTablaInline] # Esto hace que las celdas sean editables cuando entres a la fila
+
+@admin.register(CeldaTabla)
+class CeldaTablaAdmin(admin.ModelAdmin):
+    list_display = ('fila_tabla', 'encabezado_columna', 'respuesta_correcta')

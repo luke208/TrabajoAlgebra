@@ -1,25 +1,46 @@
-{% extends "account/base_entrance.html" %}
+{% extends "Layout/base.html" %}
 {% load i18n %}
-{% load allauth account %}
+{% load allauth socialaccount %}
+{% load static %}
+
 {% block head_title %}
-    {% trans "THE SCAPE ROOM: UNKNOWN DIMENSION" %}
+    {% trans "Acceso Restringido" %}
 {% endblock head_title %}
-{% block content %}
-    {% element h1 %}
-        {% trans "Sign In" %}
-    {% endelement %}
 
-    {% if SOCIALACCOUNT_ENABLED %}
-        <p>
-            {% trans "Por favor, inicia sesión con Google." %}
-        </p>
-        {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
-    {% endif %}
-
-    {% endblock content %}
-{% block extra_body %}
+{% block extra_head %}
     {{ block.super }}
-    {% if PASSKEY_LOGIN_ENABLED %}
-        {% include "mfa/webauthn/snippets/login_script.html" with button_id="passkey_login" %}
-    {% endif %}
-{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/iniciarSesion.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock extra_head %}
+
+{% block content %}
+<div class="login-page-wrapper">
+    <div class="login-box">
+        <div class="login-key">
+            <i class="fa fa-key" aria-hidden="true"></i>
+        </div>
+        <div class="login-title">
+            {% trans "ACCESO RESTRINGIDO" %}
+        </div>
+
+        <div class="login-form">
+            <p class="login-text">
+                {% trans "Autoriza tus credenciales" %}
+            </p>
+            {% if SOCIALACCOUNT_ENABLED %}
+                {% get_providers as socialaccount_providers %}
+                {% for provider in socialaccount_providers %}
+                    {% if provider.id == "google" %}
+                        <a title="{{provider.name}}" class="google-login-button"
+                           href="{% provider_login_url provider.id %}">
+                           <img src="{% static 'imagenes/logo-google.png' %}" alt="Logo de Google" class="google-logo">
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block body_class %}login-page-body{% endblock body_class %}

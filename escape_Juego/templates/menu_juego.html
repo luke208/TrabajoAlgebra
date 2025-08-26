@@ -32,7 +32,9 @@
     <h1><strong>ESCAPE ROOM:</strong></h1>
     <h1><strong>UNKNOWN DIMENSION</strong></h1>
     <h2>Continuar</h2>
-    <a href="#" onclick="cargarNivel()"><h3 class="clickeables">Nueva Partida</h3></a>
+    <a href="#" id="nuevaPartidaBtn" class="clickeables" data-sala-id="1">
+    <h3 >Nueva Partida</h3>
+    </a>
     
     <!-- PANTALLA HACKER (EFECTO MATRIX) -->
     <div id="pantallaCarga" style="display:none;" class="pantalla-hacker">
@@ -53,9 +55,7 @@
     </audio>
     
     <!-- OPCIONES DEL MENÚ -->
-    <h3>Cargar Partida</h3>
-    <h3>Niveles</h3>
-    <h3>Ajustes</h3>
+    <a href="{% url 'eleccionNivel' %}"><h3>Niveles</h3></a>
     <h3>Soporte</h3>
   </div>
 
@@ -64,6 +64,11 @@
     <h3><a href="{% url 'account_logout' %}">Cerrar Sesion</a></h3>
   </div>
   <!-- JS desde /static/js/ -->
-  <script src="../static/js/menu.js"></script>
+    <!-- Script para pasar la URL base de los estaticos al JS -->
+    <script>
+        window.STATIC_URL_BASE = "{% static '' %}";
+    </script>
+    
+  <script src="{% static 'js/menu.js'%}"></script>
 </body>
 </html>
