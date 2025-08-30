@@ -224,6 +224,10 @@ button {
     /*object-fit: cover; /* Para asegurar que la imagen cubra todo el espacio */
 }
 
+#game-image.fondo[src*="imagenes/nivel1/2.webp"]{
+    object-fit: cover;
+}
+
 /* ======================== */
 /* ===== POPUPS Y PANTALLAS ===== */
 /* ======================== */

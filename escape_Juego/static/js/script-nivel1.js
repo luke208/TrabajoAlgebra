@@ -44,7 +44,7 @@ const gameOverScreen = document.getElementById("gameOverScreen"); //Ventana-Game
 let pasoActual = 0;
 const mensajes = [//Mensajes que ve el usuario, en el tutorial
     "¿Conexión establecida? Bien… Escuchen con atención, porque solo lo voy a decir una vez. Yo soy Ghost. Ustedes son la última línea entre nosotros… y el caos",
-    "El grupo WampaSeca ha tomado el control total de la red de televisión nacional. Pero eso es solo la fachada. Están usando esa red para infiltrar un malware que, si no lo detenemos, tomará el control de todos los sistemas de emergencia del país: hospitales, aeropuertos, centrales eléctricas… todo.",
+    "El grupo ZeroSignal ha tomado el control total de la red de televisión nacional. Pero eso es solo la fachada. Están usando esa red para infiltrar un malware que, si no lo detenemos, tomará el control de todos los sistemas de emergencia del país: hospitales, aeropuertos, centrales eléctricas… todo.",
     "Si el contador llega a cero, ellos activarán un apagón masivo y, en cuestión de minutos, las ciudades quedarán a oscuras. El caos hará el resto. Para evitarlo debes colocar el código de desactivación del malware que obtendrás en las computadoras de la sala de control.",
     "No tenemos refuerzos. No hay botón de reinicio. Cada computadora que aseguren es una puerta que cerramos en su cara. Cada segundo que pierdan es un paso más hacia la catástrofe. Limpien el sistema, corten sus accesos y no dejen que ZeroSignal llegue al control maestro. Si fallan… esta noche el país entero caerá en la oscuridad",
     "debes volver a la sala de control y eliminar el malware que ZeroSignal ha instalado en las computadoras.",
@@ -777,9 +777,9 @@ function cambiarHabitacion(habitacion, boton) {
 
         const estadoCompu = computadorasEstado[habitacion];
         if (estadoCompu && estadoCompu.resuelto) {
-            fondo.src = `${window.STATIC_URL_BASE}imagenes/${habitacion}_resuelto.jpeg`;
+            fondo.src = `${window.STATIC_URL_BASE}imagenes/nivel1/${habitacion}_resuelto.webp`;
         } else {
-            fondo.src = `${window.STATIC_URL_BASE}imagenes/${habitacion}.jpeg`;
+            fondo.src = `${window.STATIC_URL_BASE}imagenes/nivel1/${habitacion}.webp`;
         }
         
         fondo.style.transform = 'scale(1)';
@@ -1155,7 +1155,7 @@ function verificarProgresoMisiones(idCompu) {
 
 function cambiarImagenCompuResuelta(idCompu) {
     if (habitacionActual === idCompu) {
-        fondo.src = `${window.STATIC_URL_BASE}imagenes/${idCompu}_resuelto.jpeg`;
+        fondo.src = `${window.STATIC_URL_BASE}imagenes/nivel1/${idCompu}_resuelto.webp`;
     }
 }
 
@@ -1453,8 +1453,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     try {
         await inicializarPartidaId();
-        
+        fondo.src = `${window.STATIC_URL_BASE}imagenes/nivel1/1.webp`;
         inicializarMision();
+        
         
         // 🆕 SINCRONIZAR PUNTAJE INICIAL DESDE BACKEND
         await sincronizarPuntajeInicial();

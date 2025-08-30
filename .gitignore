@@ -19,3 +19,6 @@ env/
 
 # Archivos de desarrollo específicos del IDE (ej. VS Code)
 .vscode/
+
+#Base de Datos de Desarollo
+db.sqlite3

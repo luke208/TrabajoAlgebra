@@ -143,7 +143,7 @@ SECRET_KEY = os.getenv('SECRET_KEY') #Lee la clave secreta, y evita que se encue
 #Asi como tambien, se encuentre cargada en el repo de github al publico
 
 #Utilizada para la correcta lectura de la variable DEBUG
-DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 't')
+#DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 't')
 
 LOGIN_REDIRECT_URL = 'despues_login'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
