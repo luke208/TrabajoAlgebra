@@ -23,6 +23,8 @@ class Jugador(models.Model):
     # Ya no necesitas 'nombre' ni 'email' aquí, se obtienen del User model (user.username, user.email)
     fecha_registro = models.DateTimeField(auto_now_add=True)  # Fecha en la que se registró automáticamente
 
+    nombre_configurado_manualmente = models.BooleanField(default=False, 
+                                                         help_text="Indica si el usuario ya configuró su nombre de juego manualmente")
     # Otros campos específicos del jugador que no están en el User de Django
     # Por ejemplo, un avatar, una biografía, etc.
     # avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)

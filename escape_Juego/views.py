@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy # Importar reverse_lazy
 from django.views.generic import FormView
 from django.contrib.auth import logout as auth_logout
-from .models import Sala,ProgresoUsuario, Mision, FilaTabla, CeldaTabla,Partida
+from .models import Sala,ProgresoUsuario, Mision, FilaTabla, CeldaTabla,Partida,Jugador
 from .forms import NombreJuegoForm
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -14,41 +14,65 @@ from django.views.decorators.http import require_POST
 #Coloco esta libreria para tener en cuenta el tiempo del usuario
 from django.utils.timezone import now
 from decimal import Decimal
+from .signals import crear_nombre_juego_unico
 #Inicio de pagina-Nombrado como Home
 def home(request):
     return render(request, 'home.html')
 
 # --- NUEVA VISTA: Punto de entrada después del login ---
-@login_required #Esto significa que solamente puede ser accedido, ya logueado
+@login_required
 def despues_login(request):
-    # Verifica si el Jugador tiene un nombre_juego configurado
-    # Como es la primera vez, este se encuentra limpio
-    #Por lo cual, deberia ir aqui
-    if not request.user.jugador.nombre_juego:
-        messages.info(request, "¡Bienvenido! Por favor, elige un nombre para tu jugador.")
+    #Si trae el usuario 
+    if hasattr(request.user, 'jugador'):
+        jugador = request.user.jugador #Lo trae y ya esta configurado el nombre en el juego
+        print(f"🔍 Nombre: '{jugador.nombre_juego}', Configurado manualmente: {jugador.nombre_configurado_manualmente}")
+        
+        # Si NO ha configurado manualmente su nombre (primera vez)
+        if not jugador.nombre_configurado_manualmente:
+            print("➡️ Primera vez - Redirigiendo a configurar nombre")
+            return redirect('configurar_nombre_juego')
+        else:#Sino va a directo al menu del juego
+            return redirect('menu_juego')
+    else: #Si no hay un jugador creado, se forma
+        # Crear jugador si no existe (por si falla el signal)
+        base_nombre = request.user.first_name or request.user.username or request.user.email.split('@')[0]
+        nombre_juego_unico = crear_nombre_juego_unico(base_nombre)
+        Jugador.objects.create(
+            user=request.user,
+            nombre_juego=nombre_juego_unico,
+            nombre_configurado_manualmente=False  # Debe configurar
+        )
         return redirect('configurar_nombre_juego')
-    else:
-        # Si ya tiene nombre de juego, va directo al menú principal del juego
-        return redirect('menu_juego')
-# --- Vista para configurar el nombre del jugador ---
 
 class ConfigurarNombreJuego(LoginRequiredMixin, FormView):
     template_name = 'configurar_nombre_juego.html'
     form_class = NombreJuegoForm
-    success_url = reverse_lazy('menu_juego') # Después de guardar el nombre, ir al menú
+    success_url = reverse_lazy('menu_juego')
 
-    #Trae el nombre actual en caso de que exista
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def get_initial(self):
         initial = super().get_initial()
-        # Precargar el nombre actual si ya existe
-        if self.request.user.is_authenticated and hasattr(self.request.user, 'jugador'):
+        if hasattr(self.request.user, 'jugador'):
             initial['nombre_juego'] = self.request.user.jugador.nombre_juego
         return initial
     
-    #Trae el formulario validado y coloca el nombre que eligio
     def form_valid(self, form):
-        jugador = self.request.user.jugador
+        if not hasattr(self.request.user, 'jugador'):
+            # Crear jugador si no existe
+            jugador = Jugador.objects.create(
+                user=self.request.user,
+                nombre_juego='',
+                nombre_configurado_manualmente=False
+            )
+        else:
+            jugador = self.request.user.jugador
+            
         jugador.nombre_juego = form.cleaned_data['nombre_juego']
+        jugador.nombre_configurado_manualmente = True  # ← CLAVE: Ya configuró
         jugador.save()
         messages.success(self.request, "¡Tu nombre de juego ha sido guardado con éxito!")
         return super().form_valid(form)
@@ -60,7 +84,6 @@ def menu_juego(request):
     return render(request, 'menu_juego.html',{'jugador':jugador})
 
 #Cierre de sesión , cuando clickea
-
 @login_required
 def custom_logout_view(request):
     """

@@ -17,6 +17,13 @@
     <h1 class="config-title">¡Bienvenido Hacker! ¿Cómo quieres que te digamos?</h1>
     <p class="config-text">Así se te identificará en el juego y en el ranking.</p>
 
+    {% if user.jugador.nombre_juego %}
+        <div class="alert alert-info">
+            <strong>Sugerencia:</strong> Te hemos asignado temporalmente el nombre "<strong>{{ user.jugador.nombre_juego }}</strong>".
+            Puedes cambiarlo por el que prefieras o mantenerlo.
+        </div>
+    {% endif %}
+    
     <form method="post" class="config-form">
         {% csrf_token %}
         <div class="form-group">

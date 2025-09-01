@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'escape_Juego',
+    #'escape_Juego',
+    'escape_Juego.apps.EscapeJuegoConfig', 
     'django.contrib.sites',  # Necesario para allauth
     'allauth',  # Core allauth
     'allauth.account',  # Manejo de cuentas
@@ -61,6 +62,13 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware' #De Allauth
 ]
 
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'AUTH_PARAMS': {
+            'prompt': 'select_account',
+        }
+    }
+}
 ROOT_URLCONF = 'escapeRoom.urls'
 
 TEMPLATES = [
