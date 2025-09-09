@@ -17,6 +17,14 @@
 </head>
 <body>
 
+   <!-- ==============================
+       PANTALLA DE ACCESO AL SISTEMA
+  ============================== -->
+  <div id="pantallaAcceso" class="pantalla-bienvenida">
+    <h1>ACCESO AL SISTEMA</h1>
+    <button id="btnAcceso" class="btn">ENTRAR</button>
+  </div>
+
   <!-- ==============================
        VIDEO DE FONDO
   ============================== -->
@@ -28,14 +36,25 @@
   <!-- ==============================
        MENÚ PRINCIPAL
   ============================== -->
-  <div class="contenido" id="menu-principal">
+  <div class="contenido" id="menu-principal" style="display: none;">
     <h1><strong>ESCAPE ROOM:</strong></h1>
     <h1><strong>UNKNOWN DIMENSION</strong></h1>
     <h2>Continuar</h2>
     <a href="#" id="nuevaPartidaBtn" class="clickeables" data-sala-id="1">
     <h3 >Nueva Partida</h3>
     </a>
+
+    <!-- OPCIONES DEL MENÚ -->
+    <a href="{% url 'eleccionNivel' %}"><h3>Niveles</h3></a>
+    <h3>Soporte</h3>
+  </div>
     
+  <!-- Info del Usuario-->
+  <div class="usuario-info" id="usuarioInfo" style="display: none;">
+    <h3>Usuario: {{ jugador.nombre_juego }}</h3>
+    <h3><a href="{% url 'account_logout' %}">Cerrar Sesion</a></h3>
+  </div>
+
     <!-- PANTALLA HACKER (EFECTO MATRIX) -->
     <div id="pantallaCarga" style="display:none;" class="pantalla-hacker">
       <canvas id="matrixCanvas"></canvas>
@@ -48,21 +67,15 @@
     <!-- AUDIOS DEL MENÚ -->
     <audio id="sonidoAcceso" src="{% static 'audios/sonido-menu.mp3' %}" preload="auto"></audio>
     <audio id="sonidoInicio">
-      <source src="{% static 'audios/sonido-stage.wav' %}" type="audio/wav">
+      <source src="{% static 'audios/sonido-stage.mp3' %}" type="audio/mp3">
     </audio>
-    <audio id="sonido-menu" autoplay loop>
+    <audio id="sonido-menu" loop>
       <source src="{% static 'audios/sonido-menu.mp3' %}" type="audio/mp3">
     </audio>
     
-    <!-- OPCIONES DEL MENÚ -->
-    <a href="{% url 'eleccionNivel' %}"><h3>Niveles</h3></a>
-    <h3>Soporte</h3>
-  </div>
+    
 
-  <div  class="usuario-info">
-    <h3>Usuario: {{ jugador.nombre_juego }}</h3>
-    <h3><a href="{% url 'account_logout' %}">Cerrar Sesion</a></h3>
-  </div>
+  
   <!-- JS desde /static/js/ -->
     <!-- Script para pasar la URL base de los estaticos al JS -->
     <script>
