@@ -1,0 +1,44 @@
+
+.pantalla-bienvenida {
+    border:none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #222; /* fondo oscuro */
+  color: #fff;
+  font-family: "Audiowide", sans-serif;
+  text-align: center;
+}
+
+.pantalla-bienvenida h1 {
+  font-size: 3rem;
+  color: #24db0c; /* naranja para alerta/desarrollo */
+  margin-bottom: 1rem;
+}
+
+.pantalla-bienvenida p {
+  font-size: 1.5rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  font-size: 2rem;
+  background-color: #008800; /* verde del ejemplo */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 1rem;
+  font-family: "Audiowide", sans-serif;
+  transition: 0.3s;
+}
+
+.btn:disabled {
+  background-color: #555; /* gris cuando no se puede usar */
+  cursor: not-allowed;
+  opacity: 0.7;
+}
