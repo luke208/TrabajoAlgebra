@@ -44,9 +44,9 @@ const gameOverScreen = document.getElementById("gameOverScreen"); //Ventana-Game
 let pasoActual = 0;
 const mensajes = [//Mensajes que ve el usuario, en el tutorial
     "¿Conexión establecida? Bien… Escuchen con atención, porque solo lo voy a decir una vez. Yo soy Ghost. Ustedes son la última línea entre nosotros… y el caos",
-    "El grupo ZeroSignal ha tomado el control total de la red de televisión nacional. Pero eso es solo la fachada. Están usando esa red para infiltrar un malware que, si no lo detenemos, tomará el control de todos los sistemas de emergencia del país: hospitales, aeropuertos, centrales eléctricas… todo.",
-    "Si el contador llega a cero, ellos activarán un apagón masivo y, en cuestión de minutos, las ciudades quedarán a oscuras. El caos hará el resto. Para evitarlo debes colocar el código de desactivación del malware que obtendrás en las computadoras de la sala de control.",
-    "No tenemos refuerzos. No hay botón de reinicio. Cada computadora que aseguren es una puerta que cerramos en su cara. Cada segundo que pierdan es un paso más hacia la catástrofe. Limpien el sistema, corten sus accesos y no dejen que ZeroSignal llegue al control maestro. Si fallan… esta noche el país entero caerá en la oscuridad",
+    "El grupo ZeroSignal ha tomado el control total de la red de televisión nacional.",
+    "Si el contador llega a cero, ellos activarán un apagón masivo. Para evitarlo debes colocar el código de desactivación del malware que obtendrás en las computadoras de la sala de control.",
+    "Cada computadora que aseguren es una puerta que cerramos en su cara. Cada segundo que pierdan es un paso más hacia la catástrofe. Limpien el sistema, corten sus accesos y recuperen el control.",
     "debes volver a la sala de control y eliminar el malware que ZeroSignal ha instalado en las computadoras.",
     "ahora todo esta en sus manos. ¡Buena suerte!"
 ];
@@ -84,6 +84,21 @@ const botonesPorHabitacion = {
     //Pantalla principal
     'principal': [{ top: '87%', left: '45%', target: 'principal', accion: 'mostrarMision' }],
 };
+// 🔹 Prevenir salir/recargar/volver atrás sin confirmación
+    window.addEventListener("beforeunload", function (e) {
+      e.preventDefault();
+      // Algunos navegadores necesitan returnValue configurado
+      e.returnValue = "Si sales de la página perderás tu progreso. ¿Quieres continuar?";
+    });
+    // 🔹 Precargar imágenes del nivel
+    function precargarImagenes(rutas) {
+      let imagenes = [];
+      for (let i = 0; i < rutas.length; i++) {
+        imagenes[i] = new Image();
+        imagenes[i].src = rutas[i];
+      }
+      return imagenes;
+    }
 
 // ✅ FUNCIÓN PARA OBTENER PARTIDA_ID DE FORMA SEGURA
 function obtenerPartidaId() {
@@ -421,7 +436,7 @@ async function completarNivel() {
 
 //Comprobar el estado de la computadora
 function comprobarcomputadora(idCompu) {
-  const targetsTrampa = ['compu1_2', 'compu1_3', 'compu3'];
+  const targetsTrampa = ['compu1_3'];
   const nombreNormalizado = idCompu.toLowerCase();
 
   if (targetsTrampa.includes(nombreNormalizado)) {
@@ -1450,7 +1465,29 @@ if (botonVolver) {
 
 // ---------------------- INICIALIZACIÓN ----------------------
 document.addEventListener('DOMContentLoaded', async () => {
-    
+    // 🔹 Al cargar la página, precargar imágenes
+    window.onload = function() {
+      precargarImagenes([
+        "imagenes/nivel1/1.webp",
+        "imagenes/nivel1/2.webp",
+        "imagenes/nivel1/3.webp",
+        "imagenes/nivel1/compu1_2_resuelto.webp",
+        "imagenes/nivel1/compu1_2.webp",
+        "imagenes/nivel1/compu1_3_resuelto.webp",
+        "imagenes/nivel1/compu1_3.webp",
+        "imagenes/nivel1/compu1_4_resuelto.webp",
+        "imagenes/nivel1/compu1_4.webp",
+        "imagenes/nivel1/compu1_resuelto.webp",
+        "imagenes/nivel1/compu1.webp",
+        "imagenes/nivel1/compu2_resuelto.webp",
+        "imagenes/nivel1/compu2.webp",
+        "imagenes/nivel1/compu3_resuelto.webp",
+        "imagenes/nivel1/compu3.webp",
+        "imagenes/nivel1/hacker.webp",
+        "imagenes/nivel1/principal.webp"
+      ]);
+    };
+
     try {
         await inicializarPartidaId();
         fondo.src = `${window.STATIC_URL_BASE}imagenes/nivel1/1.webp`;

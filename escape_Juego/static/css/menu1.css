@@ -7,6 +7,8 @@
       box-sizing: border-box;
     }
 
+
+
    body, html {
   margin: 0;
   padding: 0;
@@ -80,6 +82,7 @@
     z-index: 1;
     color: white;
     text-align: left;
+    /* Reducir el padding y el tamaño del menú */
     padding: 1rem 0 0 1rem;
     font-family: "Audiowide", sans-serif;
 }
@@ -87,6 +90,7 @@
 /* --- Títulos del menú --- */
 .contenido h1 {
     margin-top: 0;
+    /* Reducir el tamaño de fuente para escritorio */
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
     font-style: normal;
@@ -97,16 +101,20 @@
 }
 
 .contenido h2 {
+    /* Reducir el margen superior para que no esté tan abajo */
     margin-top: 8rem;
-    font-size: 2rem; /* Aumentado de 1.5rem a 2rem */
+    /* Reducir el tamaño de fuente */
+    font-size: 1.5rem;
     margin-bottom: 0.5rem;
     cursor: pointer;
     display: block;
     width: fit-content;
 }
 
+
 .contenido h3 {
-    font-size: 2rem; /* Aumentado de 1.5rem a 2rem */
+    /* Reducir el tamaño de fuente */
+    font-size: 1.5rem;
     margin-bottom: 0.5rem;
     cursor: pointer;
     transition: color 0.3s;
@@ -118,6 +126,7 @@
 a {
   text-decoration: none;
   color: inherit;
+  display: block;
   width: fit-content;
 }
 
@@ -180,45 +189,6 @@ a {
 }
 
 /* ==============================
-   DETALLES DEL USUARIO Y LOGOUT
-   ============================== */
-
-/* Contenedor del usuario y el botón */
-.usuario-info {
-    display: flex;
-    position: fixed;
-    flex-direction: row;
-    top: 1rem;
-    right: 1rem;
-    text-align: right;
-    font-family: "Audiowide", sans-serif;
-    color: white;
-    font-size: 1rem;
-    z-index: 10;
-}
-
-/* Estilo para el nombre de usuario */
-.usuario-info h3 {
-    margin: 0;
-    font-size: 1rem;
-    color: #00cc00;
-}
-
-/* Estilo para el enlace de Cerrar sesión */
-.usuario-info a {
-    text-decoration: none;
-    color: #00ff00;
-    font-size: 1rem;
-    transition: color 0.3s;
-}
-
-/* Efecto hover al pasar el cursor sobre el enlace */
-.usuario-info a:hover {
-    color: #00ffff;
-}
-
-
-/* ==============================
    ESTILOS RESPONSIVOS
    ============================== */
 
@@ -227,8 +197,6 @@ a {
 
   /* Ajuste de fuentes para la pantalla de bienvenida */
   .pantalla-bienvenida h1 {
-    text-align: center;
-    align-items: center;
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
   }
@@ -238,160 +206,66 @@ a {
     font-size: 1.5rem;
   }
 
-  /* Ajuste para la información del usuario en móviles */
-  .usuario-info {
-    position: fixed;
-    top: 1rem;
-    left: 0;
-    right: 0;
-    width: 100%;
-    display: flex !important;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    z-index: 15;
-    backdrop-filter: blur(5px);
-  }
-
-  .usuario-info h3 {
-    margin: 0;
-    font-size: 0.9rem;
-    white-space: nowrap;
-  }
-
-  .usuario-info a {
-    font-size: 0.9rem;
-    white-space: nowrap;
-  }
-
-  /* Ajuste del menú principal para móviles */
+  /* Ajuste de fuentes para el menú principal */
   .contenido {
-    padding: 8rem 1rem 0 1rem; /* Aumentado el padding-top para dar espacio a la info del usuario */
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+    padding: 2rem 1rem 0 1rem;
+    text-align: center; /* Centrar el contenido del menú */
   }
 
   .contenido h1 {
-    font-size: 2rem;
-    line-height: 1;
-    margin-bottom: 1rem;
-    text-align: center;
+    font-size: 2.5rem;
+    line-height: 1; /* Restaurar el line-height para móviles */
+    margin-bottom: 0.5rem;
   }
 
   .contenido h2 {
-    margin-top: 3rem;
-    font-size: 1.8rem;
-    text-align: center;
-    width: 100%;
+    margin-top: 5rem; /* Reducir el margen superior para que no ocupe tanto espacio */
+    font-size: 1.5rem;
   }
 
   .contenido h3 {
-    font-size: 1.8rem;
-    text-align: center;
-    width: 100%;
-    margin: 0.8rem 0;
-  }
-
-  .contenido a {
-    width: 100%;
-    text-align: center;
-    margin: 0.8rem 0;
-  }
-
-  /* Ajustes para la pantalla hacker en móviles */
-  .hacker-texto {
-    font-size: 2rem;
-  }
-
-  .hacker-cargando {
     font-size: 1.5rem;
+  }
+
+  .contenido a, .contenido h2, .contenido h3 {
+    width: 100%;
+    margin: 0.5rem auto; /* Centrar y agregar espacio entre los elementos del menú */
   }
 }
 
-/* Estilos para pantallas muy pequeñas (menos de 480px) */
-@media (max-width: 480px) {
-  .usuario-info {
-    top: 0.5rem;
-    padding: 0.4rem 0.8rem;
-  }
 
-  .usuario-info h3,
-  .usuario-info a {
-    font-size: 0.8rem;
-  }
+ /* ==============================
+   DETALLES DEL USUARIO Y LOGOUT
+   ============================== */
 
-  .contenido {
-    padding-top: 6rem;
-  }
-
-  .contenido h1 {
-    font-size: 1.6rem;
-  }
-
-  .contenido h2 {
-    font-size: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .contenido h3 {
-    font-size: 1.5rem;
-  }
-
-  .pantalla-bienvenida h1 {
-    font-size: 1.2rem;
-  }
-
-  .btn {
-    padding: 0.6rem 1.2rem;
-    font-size: 1.2rem;
-  }
+/* Contenedor del usuario y el botón */
+.usuario-info {
+    position: absolute; /* Posicionamiento para que esté en la esquina superior */
+    top: 1rem;
+    right: 1rem;
+    text-align: right;
+    font-family: "Audiowide", sans-serif;
+    color: white; /* Color base para el texto */
+    font-size: 1rem; /* Tamaño de fuente más discreto */
+    z-index: 10; /* ¡AÑADE ESTA LÍNEA! */
 }
 
-/* Estilos para tablets en orientación portrait (769px a 1024px) */
-@media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
-  .usuario-info {
-    position: fixed;
-    top: 1rem;
-    left: 0;
-    right: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.6rem 2rem;
-    z-index: 15;
-    backdrop-filter: blur(5px);
-  }
-
-  .usuario-info h3 {
-    font-size: 1.1rem;
+/* Estilo para el nombre de usuario */
+.usuario-info h3 {
     margin: 0;
-  }
+    font-size: 1rem; /* Tamaño de fuente más discreto */
+    color: #00cc00; /* Color verde brillante */
+}
 
-  .usuario-info a {
-    font-size: 1.1rem;
-  }
+/* Estilo para el enlace de Cerrar sesión */
+.usuario-info a {
+    text-decoration: none; /* Quitar el subrayado del enlace */
+    color: #00ff00; /* Color del texto del enlace */
+    font-size: 1rem;
+    transition: color 0.3s;
+}
 
-  .contenido {
-    padding: 4rem 2rem 2rem 2rem;
-  }
-
-  .contenido h1 {
-    font-size: 2.8rem;
-    margin-bottom: 2rem;
-  }
-
-  .contenido h2 {
-    font-size: 2.2rem;
-    margin: 2rem 0 1.2rem 0;
-  }
-
-  .contenido h3 {
-    font-size: 2.2rem;
-    margin: 1rem 0;
-  }
+/* Efecto hover al pasar el cursor sobre el enlace */
+.usuario-info a:hover {
+    color: #00ffff; /* Cambia a un color cian al pasar el ratón */
 }

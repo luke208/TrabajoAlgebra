@@ -15,7 +15,7 @@
     <div class="orientation-subtext">Para una mejor experiencia, usa tu dispositivo en modo horizontal</div>
 </div>
   <div id="game-container">
-    <img id="game-image" class="fondo" src="{% static 'imagenes/1.jpeg' %}" alt="Pantalla principal">
+    <img id="game-image" class="fondo" src="{% static 'imagenes/1.webp' %}" alt="Pantalla principal">
   </div>
 
   <!-- Botón volver con animación chevron -->
@@ -45,7 +45,11 @@
     <button onclick="reiniciarNivel()">Reintentar</button>
   </div>
 
-  <div id="timer" class="contador"></div>
+  <div id = "hud-container">
+    <div id="timer" class="contador"></div>
+    <div id="puntaje-display">Puntaje: 100.00</div>
+  </div>
+
 
   <!-- Modal genérico reutilizable -->
   <div id="custom-modal" class="modal" style="display:none;">
@@ -70,9 +74,7 @@
      style="display: none;">
 </div>
 
-<div id="puntaje-display">
-    Puntaje: 100.00
-</div>
+
 
   <!-- Base URL para estáticos -->
   <script>

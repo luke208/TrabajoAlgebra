@@ -655,7 +655,7 @@ button {
 }
 
 /* === Altura grande (monitores widescreen en horizontal) === */
-@media (min-height: 769px) {
+@media (min-height: 769px) and (min-width: 1400px) {
   #tutorial-container {
     padding: 1.5em 3em;
     font-size: 1em;
@@ -677,6 +677,31 @@ button {
   #next-btn {
     font-size: 0.9em;
     padding: 0.6em 1.2em;
+  }
+}
+
+@media (min-width: 1200px) and (max-height: 800px) {
+  #tutorial-container {
+    padding: 1.2em 2.5em;
+    font-size: 0.9em;
+  }
+
+  .avatar {
+    width: 10em;
+    height: 10em;
+  }
+
+  .avatar-nombre {
+    font-size: 1.5em;
+  }
+
+  .tutorial-text {
+    font-size: 1.2em;
+  }
+
+  #next-btn {
+    font-size: 0.8em;
+    padding: 0.5em 1em;
   }
 }
 
@@ -1011,88 +1036,57 @@ button {
 /* ===== TIMER Y PUNTAJE RESPONSIVOS ===== */
 /* ======================== */
 
-/* Timer - mantener en la esquina superior derecha */
-#timer.contador {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    font-size: clamp(1.2rem, 3vw, 2.5rem);
-    color: #00ff00;
-    font-family: 'Courier New', monospace;
-    z-index: 1000;
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: clamp(8px, 1.5vw, 16px);
-    border: 2px solid #00ff00;
-    border-radius: 10px;
-    min-width: clamp(80px, 15vw, 160px);
-    text-align: center;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+/* HUD fijo arriba a la derecha */
+#hud-container{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+  z-index: 1500;
 }
 
-/* ===== Ajustar el puntaje al centro superior ===== */
-#puntaje-display {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: clamp(6px, 1.5vw, 12px);
-    border-radius: 8px;
-    font-family: 'Courier New', monospace;
-    font-size: clamp(1rem, 2.2vw, 1.5rem);
-    font-weight: bold;
-    border: 2px solid #ffffff;
-    z-index: 1200;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
-    min-width: clamp(100px, 20vw, 200px);
-    text-align: center;
+/* Anula cualquier position/transform/z-index previo en los hijos */
+#hud-container > *{
+  position: static !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  transform: none !important;
+  z-index: auto !important;
 }
 
-/* Tablets (768px y menos) */
-@media (max-width: 768px) {
-    #timer.contador {
-        top: 15px;
-        right: 15px;
-        font-size: clamp(1rem, 4vw, 1.8rem);
-        padding: clamp(6px, 1.2vw, 12px);
-        min-width: clamp(70px, 12vw, 120px);
-        border-width: 1.5px;
-    }
-    
-    #puntaje-display {
-        top: clamp(65px, 10vh, 85px);
-        right: 15px;
-        font-size: clamp(0.7rem, 2.5vw, 1rem);
-        padding: clamp(5px, 1vw, 10px);
-        min-width: clamp(70px, 12vw, 120px);
-        border-width: 1.5px;
-    }
+/* Estilos visuales (sin posicionamiento) */
+#timer{
+  font-size: clamp(1.2rem, 3vw, 2.5rem);
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  background: rgba(0,0,0,0.6);
+  padding: clamp(8px, 1.5vw, 16px);
+  border: 2px solid #00ff00;
+  border-radius: 10px;
+  min-width: clamp(80px, 15vw, 160px);
+  text-align: center;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 15px rgba(0,255,0,0.3);
 }
 
-/* Móviles (480px y menos) */
-@media (max-width: 480px) {
-    #timer.contador {
-        top: 10px;
-        right: 10px;
-        font-size: clamp(0.9rem, 5vw, 1.4rem);
-        padding: clamp(5px, 1vw, 8px);
-        min-width: clamp(60px, 18vw, 90px);
-        border-width: 1px;
-        border-radius: 6px;
-    }
-    
-    #puntaje-display {
-        top: clamp(50px, 8vh, 65px);
-        right: 10px;
-        font-size: clamp(0.6rem, 3vw, 0.9rem);
-        padding: clamp(4px, 0.8vw, 6px);
-        min-width: clamp(60px, 18vw, 90px);
-        border-width: 1px;
-        border-radius: 4px;
-    }
+#puntaje-display{
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: clamp(6px, 1.5vw, 12px);
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: clamp(1rem, 2.2vw, 1.5rem);
+  font-weight: bold;
+  border: 2px solid #fff;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 15px rgba(255,255,255,0.3);
+  min-width: clamp(100px, 20vw, 200px);
+  text-align: center;
 }
 
 /* Móviles muy pequeños (320px y menos) */
@@ -1114,6 +1108,9 @@ button {
         min-width: 55px;
         border-radius: 3px;
     }
+    #game-image.fondo[src*="imagenes/nivel1/2.webp"]{
+    object-fit: cover;
+    }
 }
 
 /* Orientación horizontal en móviles */
@@ -1133,6 +1130,9 @@ button {
         padding: 3px 6px;
         min-width: clamp(50px, 12vw, 80px);
     }
+    #game-image.fondo[src*="imagenes/nivel1/2.webp"]{
+    object-fit: cover;
+    }
 }
 
 /* Pantallas grandes (1200px y más) */
@@ -1151,6 +1151,9 @@ button {
         font-size: 1.3rem;
         padding: 14px;
         min-width: 180px;
+    }
+    #game-image.fondo[src*="imagenes/nivel1/2.webp"]{
+    object-fit: cover;
     }
 }
 
@@ -1247,6 +1250,10 @@ button {
         padding: clamp(4px, 0.8vw, 8px);
         font-size: clamp(9px, 1.5vw, 12px);
     }
+
+    #game-image.fondo[src*="imagenes/nivel1/2.webp"]{
+    object-fit: cover;
+    }
 }
 
 /* ======================== */
@@ -1278,6 +1285,10 @@ button {
     .tabla-mision input {
         padding: 4px;
         font-size: 10px;
+    }
+
+    #game-image.fondo[src*="imagenes/nivel1/2.webp"]{
+    object-fit: cover;
     }
 }
 
@@ -1311,6 +1322,9 @@ button {
         padding: 2px;
         font-size: 8px;
     }
+    #game-image.fondo[src*="imagenes/nivel1/2.webp"]{
+    object-fit: cover;
+    }
 }
 
 /* ======================== */
@@ -1338,6 +1352,10 @@ button {
     .tabla-mision input {
         padding: 3px;
         font-size: clamp(8px, 1.2vw, 10px);
+    }
+
+    #game-image.fondo[src*="imagenes/nivel1/2.webp"]{
+    object-fit: cover;
     }
 }
 
@@ -1369,5 +1387,9 @@ button {
     .tabla-mision input {
         padding: 12px;
         font-size: 14px;
+    }
+
+    #game-image.fondo[src*="imagenes/nivel1/2.webp"]{
+    object-fit: cover;
     }
 }
