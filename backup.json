@@ -1,0 +1,406 @@
+[
+{
+  "model": "escape_Juego.mision",
+  "pk": 11,
+  "fields": {
+    "sala": 1,
+    "titulo": "Mision 1-La Matriz Clave",
+    "enunciado_mision": "\"El ransomware ocultó su código en esta matriz. ¡Descifra sus propiedades para desactivar la fase inicial del ataque!\"\r\n\r\n1.\tClasificar M por orden, tipo (rectangular, cuadrada) y particularidad (identidad, triangular, etc.).\r\n2.\tIdentificar propiedades (elementos bajo diagonal principal).",
+    "instrucciones": "M=( 1  1  0\r\n        0 1   0\r\n        0  0  1)\r\n\r\nA= (5\r\n       3\r\n       1)",
+    "candado_intermedio_pregunta": "Orden de la Matriz",
+    "candado_intermedio_respuesta": "3",
+    "target": "compu1",
+    "order": 0,
+    "pregunta_final": "",
+    "respuesta_final": null
+  }
+},
+{
+  "model": "escape_Juego.mision",
+  "pk": 12,
+  "fields": {
+    "sala": 1,
+    "titulo": "Misión 2: Efecto Multiplicativo",
+    "enunciado_mision": "",
+    "instrucciones": "1.    Calcular M×A\r\n2.    ¿Qué sucede?\r\nLa matriz M modifica la (primera/segunda/tercera) componente de A sumándole la segunda componente \r\nLas componentes 2 y 3 permanecen (invariables/variables)\r\n\r\nM=( 1  1  0\r\n        0 1   0\r\n        0  0  1)\r\n\r\nA= (5\r\n       3\r\n       1)",
+    "candado_intermedio_pregunta": "Primer elemento de M·A",
+    "candado_intermedio_respuesta": "8",
+    "target": "compu1",
+    "order": 1,
+    "pregunta_final": "",
+    "respuesta_final": null
+  }
+},
+{
+  "model": "escape_Juego.mision",
+  "pk": 13,
+  "fields": {
+    "sala": 1,
+    "titulo": "Misión 1: Cálculo de Variación",
+    "enunciado_mision": "Desafío:\r\n1. Calcular: ΔT=T2−T1 \r\n2. Identificar zonas con T>38∘C",
+    "instrucciones": "T1=(35  37  36)   , T2=(36  38  39)",
+    "candado_intermedio_pregunta": "Clave=número de zona crítica + aumento térmico",
+    "candado_intermedio_respuesta": "6",
+    "target": "compu1_2",
+    "order": 0,
+    "pregunta_final": "",
+    "respuesta_final": null
+  }
+},
+{
+  "model": "escape_Juego.mision",
+  "pk": 14,
+  "fields": {
+    "sala": 1,
+    "titulo": "Misión 1: Producto matricial",
+    "enunciado_mision": "\"Los nodos están saturados por un ataque Dos. Redistribuye la carga o colapsará la red.\"\r\nF=(3  2\r\n1  4)\r\n\r\nP=(5  2)",
+    "instrucciones": "1.\tCalcular carga de los nodos: F·P\r\n2.\tNueva consigna: Modificar F para equilibrar cargas ¿conviene mover 1 paquete del canal 1 de Nodo 1 a Nodo 2?  Calcular la carga de nodos con F óptimo.",
+    "candado_intermedio_pregunta": "Diferencia entre la carga del Nodo 1 en la carga inicial y la carga del Nodo 1 en la carga óptima",
+    "candado_intermedio_respuesta": "5",
+    "target": "compu1_4",
+    "order": 0,
+    "pregunta_final": "",
+    "respuesta_final": null
+  }
+},
+{
+  "model": "escape_Juego.mision",
+  "pk": 15,
+  "fields": {
+    "sala": 1,
+    "titulo": "Nivel 1: Codificación",
+    "enunciado_mision": "\"El hacker exige rescate. Descifra su mensaje para encontrar su identidad.\"\r\nDescifra OK para desbloquear la salida.",
+    "instrucciones": "O=15, K=11\r\nMatriz clave: C=(1  2\r\n                           3 1),\r\nMensaje:  M=(15 \r\n                       11)\r\n\r\n1. Calcular el mensaje cifrado: C·M",
+    "candado_intermedio_pregunta": "Clave = Suma de componentes cifradas",
+    "candado_intermedio_respuesta": "93",
+    "target": "compu2",
+    "order": 0,
+    "pregunta_final": "",
+    "respuesta_final": null
+  }
+},
+{
+  "model": "escape_Juego.mision",
+  "pk": 16,
+  "fields": {
+    "sala": 1,
+    "titulo": "Misión: Reducción y rango",
+    "enunciado_mision": "",
+    "instrucciones": "El ransomware corrompió datos. Elimina redundancias para recuperar información crítica.\r\nM=(2 4 6 8\r\n      1 2 3 4\r\n      0  1 1 3\r\n      3  6  9 2)\r\n\r\n1. Reducir por filas.\r\n2. Determinar número de filas no nulas.",
+    "candado_intermedio_pregunta": "Clave = Rango(M)",
+    "candado_intermedio_respuesta": "3",
+    "target": "compu3",
+    "order": 0,
+    "pregunta_final": "",
+    "respuesta_final": null
+  }
+},
+{
+  "model": "escape_Juego.mision",
+  "pk": 17,
+  "fields": {
+    "sala": 1,
+    "titulo": null,
+    "enunciado_mision": "",
+    "instrucciones": "",
+    "candado_intermedio_pregunta": null,
+    "candado_intermedio_respuesta": null,
+    "target": "principal",
+    "order": 0,
+    "pregunta_final": "Concatenar claves de N1 a N5",
+    "respuesta_final": "865933"
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 14,
+  "fields": {
+    "mision": 11,
+    "nombre_fila": "TIpo",
+    "order": 1
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 15,
+  "fields": {
+    "mision": 11,
+    "nombre_fila": "Particularidad",
+    "order": 2
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 16,
+  "fields": {
+    "mision": 11,
+    "nombre_fila": "Orden",
+    "order": 0
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 18,
+  "fields": {
+    "mision": 13,
+    "nombre_fila": "1",
+    "order": 0
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 19,
+  "fields": {
+    "mision": 13,
+    "nombre_fila": "2",
+    "order": 1
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 20,
+  "fields": {
+    "mision": 13,
+    "nombre_fila": "3",
+    "order": 2
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 21,
+  "fields": {
+    "mision": 14,
+    "nombre_fila": "F.P",
+    "order": 0
+  }
+},
+{
+  "model": "escape_Juego.filatabla",
+  "pk": 22,
+  "fields": {
+    "mision": 14,
+    "nombre_fila": "Modificar F",
+    "order": 1
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 46,
+  "fields": {
+    "fila_tabla": 14,
+    "encabezado_columna": "Propiedad",
+    "respuesta_correcta": "Tipo",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 48,
+  "fields": {
+    "fila_tabla": 15,
+    "encabezado_columna": "Propiedad",
+    "respuesta_correcta": "Particularidad",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 50,
+  "fields": {
+    "fila_tabla": 16,
+    "encabezado_columna": "Propiedad",
+    "respuesta_correcta": "Orden",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 51,
+  "fields": {
+    "fila_tabla": 16,
+    "encabezado_columna": "Respuesta",
+    "respuesta_correcta": "3",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 52,
+  "fields": {
+    "fila_tabla": 14,
+    "encabezado_columna": "Respuesta",
+    "respuesta_correcta": "cuadrada",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 53,
+  "fields": {
+    "fila_tabla": 15,
+    "encabezado_columna": "Respuesta",
+    "respuesta_correcta": "triangular",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 54,
+  "fields": {
+    "fila_tabla": 18,
+    "encabezado_columna": "Zona",
+    "respuesta_correcta": "1",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 55,
+  "fields": {
+    "fila_tabla": 18,
+    "encabezado_columna": "ΔT",
+    "respuesta_correcta": "+1",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 56,
+  "fields": {
+    "fila_tabla": 18,
+    "encabezado_columna": "T final(T2)",
+    "respuesta_correcta": "36°C",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 57,
+  "fields": {
+    "fila_tabla": 18,
+    "encabezado_columna": "¿Crítica? Si/No",
+    "respuesta_correcta": "No",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 58,
+  "fields": {
+    "fila_tabla": 19,
+    "encabezado_columna": "Zona",
+    "respuesta_correcta": "2",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 59,
+  "fields": {
+    "fila_tabla": 19,
+    "encabezado_columna": "ΔT",
+    "respuesta_correcta": "+1",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 60,
+  "fields": {
+    "fila_tabla": 19,
+    "encabezado_columna": "T final(T2)",
+    "respuesta_correcta": "38°C",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 61,
+  "fields": {
+    "fila_tabla": 19,
+    "encabezado_columna": "¿Crítica? Si/No",
+    "respuesta_correcta": "No",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 62,
+  "fields": {
+    "fila_tabla": 20,
+    "encabezado_columna": "Zona",
+    "respuesta_correcta": "3",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 63,
+  "fields": {
+    "fila_tabla": 20,
+    "encabezado_columna": "ΔT",
+    "respuesta_correcta": "+3",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 64,
+  "fields": {
+    "fila_tabla": 20,
+    "encabezado_columna": "T final(T2)",
+    "respuesta_correcta": "39°C",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 65,
+  "fields": {
+    "fila_tabla": 20,
+    "encabezado_columna": "¿Crítica? Si/No",
+    "respuesta_correcta": "Si",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 66,
+  "fields": {
+    "fila_tabla": 21,
+    "encabezado_columna": "Operación",
+    "respuesta_correcta": "F.P",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 67,
+  "fields": {
+    "fila_tabla": 21,
+    "encabezado_columna": "Respuesta",
+    "respuesta_correcta": "19/13",
+    "es_campo_rellenable": true
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 68,
+  "fields": {
+    "fila_tabla": 22,
+    "encabezado_columna": "Operación",
+    "respuesta_correcta": "Modificar F",
+    "es_campo_rellenable": false
+  }
+},
+{
+  "model": "escape_Juego.celdatabla",
+  "pk": 69,
+  "fields": {
+    "fila_tabla": 22,
+    "encabezado_columna": "Respuesta",
+    "respuesta_correcta": "14/18",
+    "es_campo_rellenable": true
+  }
+}
+]
